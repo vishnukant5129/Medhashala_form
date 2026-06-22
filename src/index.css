@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg,
+            #F4B400,
+            #FFD95A);
+
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.glass {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, .1);
+}
+
+.section-padding {
+    padding: 7rem 1.5rem;
+}
