@@ -8,18 +8,18 @@ import FAQ from '../components/FAQ'
 import CTA from '../components/CTA'
 
 const Home = () => {
-    return (
-        <>
-            <Hero />
-            <ProblemSection />
-            <Features />
-            <SurveyInsights />
-            <WhyMedhashala />
-            <Testimonials />
-            <FAQ />
-            <CTA />
-        </>
-    )
+  return (
+    <>
+      <Hero />
+      <ProblemSection />
+      <Features />
+      <SurveyInsights />
+      <WhyMedhashala />
+      <Testimonials />
+      <FAQ />
+      <CTA />
+    </>
+  )
 }
 
 export default Home
