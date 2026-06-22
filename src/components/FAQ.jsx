@@ -1,115 +1,82 @@
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
-import { faqData } from '../constants/data'
-import { HiChevronDown, HiQuestionMarkCircle } from 'react-icons/hi'
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaChevronDown } from "react-icons/fa";
 
-const FAQItem = ({ item, index, isOpen, onToggle }) => {
+const faqs = [
+  {
+    question: "Is Medhashala free?",
+    answer:
+      "Yes. We plan to offer a free version so everyone can get started."
+  },
+  {
+    question: "Can I join focus sessions?",
+    answer:
+      "Yes. You'll be able to join Pomodoro based deep work sessions."
+  },
+  {
+    question: "Will mentors be available?",
+    answer:
+      "Yes. Students will be able to connect with experienced mentors."
+  },
+  {
+    question: "How does AI planning work?",
+    answer:
+      "AI creates personalized schedules based on your goals and workload."
+  },
+  {
+    question: "Can I track my streaks?",
+    answer:
+      "Absolutely. Progress tracking and streaks are core features."
+  }
+];
+
+export default function FAQ() {
+  const [open, setOpen] = useState(null);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.08 }}
-      className="mb-4"
-    >
-      <motion.button
-        onClick={onToggle}
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
-        className={`w-full glass rounded-xl p-5 text-left border transition-all duration-300 ${
-          isOpen
-            ? 'border-primary/30 shadow-lg shadow-primary/5'
-            : 'border-gray-200/50 dark:border-gray-700/50 hover:border-primary/20'
-        }`}
-      >
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
-              isOpen ? 'bg-primary/20 text-primary' : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
-            }`}>
-              <HiQuestionMarkCircle size={18} />
-            </div>
-            <span className={`font-semibold text-sm sm:text-base transition-colors ${
-              isOpen ? 'text-primary' : 'text-gray-900 dark:text-white'
-            }`}>
-              {item.question}
-            </span>
-          </div>
-          <motion.div
-            animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
-            className={`shrink-0 ${isOpen ? 'text-primary' : 'text-gray-400'}`}
-          >
-            <HiChevronDown size={20} />
-          </motion.div>
-        </div>
+    <section className="py-28 px-6">
+      <div className="max-w-4xl mx-auto">
 
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="overflow-hidden"
+        <h2 className="text-5xl font-bold text-center mb-16 dark:text-white">
+          Frequently Asked Questions
+        </h2>
+
+        <div className="space-y-5">
+          {faqs.map((faq, index) => (
+            <div
+              key={index}
+              className="rounded-3xl border dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl p-6"
             >
-              <div className="pt-4 pl-11">
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                  {item.answer}
-                </p>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.button>
-    </motion.div>
-  )
-}
+              <button
+                className="w-full flex justify-between items-center"
+                onClick={() => setOpen(open === index ? null : index)}
+              >
+                <h3 className="font-semibold text-lg dark:text-white">
+                  {faq.question}
+                </h3>
 
-const FAQ = () => {
-  const [openIndex, setOpenIndex] = useState(0)
+                <FaChevronDown
+                  className={`duration-300 ${open === index ? "rotate-180" : ""
+                    }`}
+                />
+              </button>
 
-  return (
-    <section id="faq" className="py-24 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-3xl" />
-      </div>
-
-      <div className="max-w-3xl mx-auto section-padding relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-4">
-            FAQ
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Frequently asked <span className="gradient-text">questions</span>
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-            Everything you need to know about Medhashala. Can not find what you are looking for? Reach out to us.
-          </p>
-        </motion.div>
-
-        <div>
-          {faqData.map((item, index) => (
-            <FAQItem
-              key={item.id}
-              item={item}
-              index={index}
-              isOpen={openIndex === index}
-              onToggle={() => setOpenIndex(openIndex === index ? -1 : index)}
-            />
+              <AnimatePresence>
+                {open === index && (
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-4 text-slate-500"
+                  >
+                    {faq.answer}
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
-
-export default FAQ
