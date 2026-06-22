@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { timelineSteps } from '../constants/data'
+import { timelineSteps } from '../../constants/data'
 import { HiArrowRight } from 'react-icons/hi'
 
 const WhyMedhashala = () => {

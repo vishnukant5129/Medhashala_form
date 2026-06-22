@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { testimonials } from '../constants/data'
+import { testimonials } from '../../constants/data'
 import { HiStar } from 'react-icons/hi'
 
 const Testimonials = () => {

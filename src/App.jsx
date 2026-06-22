@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import ProblemSection from "./components/ProblemSection";
-import FeaturesSection from "./components/FeaturesSection";
-import LoadingScreen from "./components/LoadingScreen";
-import Footer from "./components/Footer";
+import Navbar from "./components/common/Navbar";
+import Hero from "./components/common/Hero";
+import ProblemSection from "./components/common/ProblemSection";
+import FeaturesSection from "./components/common/FeaturesSection";
+import LoadingScreen from "./components/common/LoadingScreen";
+import Footer from "./components/common/Footer";
 
 import SurveyForm from "./components/form/SurveyForm";
 

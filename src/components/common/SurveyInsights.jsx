@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { surveyLikelihood, signupReasons } from '../constants/data'
+import { surveyLikelihood, signupReasons } from '../../constants/data'
 import { HiTrendingUp, HiFire, HiUsers } from 'react-icons/hi'
 
 const ProgressBar = ({ label, percentage, color, delay }) => {
