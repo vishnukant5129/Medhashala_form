@@ -1,67 +1,146 @@
 import {
   FaGithub,
-  FaLinkedin
+  FaLinkedin,
+  FaTwitter,
+  FaEnvelope,
+  FaBrain,
 } from "react-icons/fa";
+
+import { motion } from "framer-motion";
 
 export default function Footer() {
   return (
-    <footer className="border-t dark:border-slate-800 py-12 px-6">
+    <footer className="relative mt-32 border-t border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 backdrop-blur-xl">
 
-      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
+      <div className="max-w-7xl mx-auto px-6 py-16">
 
-        <div>
-          <h1 className="text-2xl font-bold text-[#F4B400]">
-            Medhashala
-          </h1>
+        <div className="grid md:grid-cols-4 gap-12">
 
-          <p className="mt-4 text-slate-500">
-            AI-powered productivity platform.
+          {/* Logo */}
+          <div>
+            <div className="flex items-center gap-3">
+
+              <div className="w-12 h-12 rounded-2xl bg-[#F4B400] flex items-center justify-center">
+                <FaBrain className="text-[#0B1F3A] text-xl" />
+              </div>
+
+              <h1 className="text-3xl font-bold text-[#0B1F3A] dark:text-white">
+                Medhashala
+              </h1>
+
+            </div>
+
+            <p className="mt-5 text-slate-500 leading-relaxed">
+              AI-powered platform helping students plan better, focus deeper,
+              and grow together.
+            </p>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h3 className="font-semibold text-lg dark:text-white">
+              Company
+            </h3>
+
+            <div className="mt-5 space-y-3 text-slate-500">
+              <p className="hover:text-[#F4B400] cursor-pointer duration-300">
+                Home
+              </p>
+
+              <p className="hover:text-[#F4B400] cursor-pointer duration-300">
+                Features
+              </p>
+
+              <p className="hover:text-[#F4B400] cursor-pointer duration-300">
+                Community
+              </p>
+
+              <p className="hover:text-[#F4B400] cursor-pointer duration-300">
+                About Us
+              </p>
+            </div>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h3 className="font-semibold text-lg dark:text-white">
+              Legal
+            </h3>
+
+            <div className="mt-5 space-y-3 text-slate-500">
+              <p className="hover:text-[#F4B400] cursor-pointer duration-300">
+                Privacy Policy
+              </p>
+
+              <p className="hover:text-[#F4B400] cursor-pointer duration-300">
+                Terms & Conditions
+              </p>
+
+              <p className="hover:text-[#F4B400] cursor-pointer duration-300">
+                Contact
+              </p>
+            </div>
+          </div>
+
+          {/* Social */}
+          <div>
+            <h3 className="font-semibold text-lg dark:text-white">
+              Connect
+            </h3>
+
+            <div className="flex gap-4 mt-6">
+
+              <motion.a
+                whileHover={{ y: -5 }}
+                href="#"
+                className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xl hover:text-[#F4B400]"
+              >
+                <FaLinkedin />
+              </motion.a>
+
+              <motion.a
+                whileHover={{ y: -5 }}
+                href="#"
+                className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xl hover:text-[#F4B400]"
+              >
+                <FaGithub />
+              </motion.a>
+
+              <motion.a
+                whileHover={{ y: -5 }}
+                href="#"
+                className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xl hover:text-[#F4B400]"
+              >
+                <FaTwitter />
+              </motion.a>
+
+              <motion.a
+                whileHover={{ y: -5 }}
+                href="#"
+                className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xl hover:text-[#F4B400]"
+              >
+                <FaEnvelope />
+              </motion.a>
+
+            </div>
+          </div>
+
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-slate-200 dark:border-slate-800 mt-14 pt-8 flex flex-col md:flex-row justify-between items-center">
+
+          <p className="text-slate-500 text-center">
+            © {new Date().getFullYear()} Medhashala. All rights reserved.
           </p>
-        </div>
 
-        <div>
-          <h3 className="font-semibold dark:text-white">
-            About
-          </h3>
+          <p className="text-slate-500 mt-4 md:mt-0">
+            Built with ❤️ using React & Tailwind CSS
+          </p>
 
-          <div className="mt-4 space-y-3 text-slate-500">
-            <p>Mission</p>
-            <p>Features</p>
-            <p>Community</p>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="font-semibold dark:text-white">
-            Legal
-          </h3>
-
-          <div className="mt-4 space-y-3 text-slate-500">
-            <p>Privacy Policy</p>
-            <p>Terms</p>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="font-semibold dark:text-white">
-            Contact
-          </h3>
-
-          <div className="flex gap-5 mt-5 text-2xl">
-
-            <FaLinkedin className="hover:text-[#F4B400] cursor-pointer duration-300" />
-
-            <FaGithub className="hover:text-[#F4B400] cursor-pointer duration-300" />
-
-          </div>
         </div>
 
       </div>
-
-      <div className="mt-12 text-center text-slate-500">
-        © 2026 Medhashala. All rights reserved.
-      </div>
-
     </footer>
   );
 }
