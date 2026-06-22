@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import ThemeToggle from "./ThemeToggle.jsx";
+import { useNavigate } from "react-router-dom";
 
 const navLinks = [
   "Home",
@@ -11,6 +12,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   return (
@@ -76,7 +78,10 @@ export default function Navbar() {
 
           <ThemeToggle />
 
-          <button className="bg-[#F4B400] py-3 rounded-xl font-semibold">
+          <button
+            onClick={() => navigate("/survey")}
+            className="bg-[#F4B400] py-3 px-5 rounded-xl font-semibold"
+          >
             Fill Survey
           </button>
         </div>
