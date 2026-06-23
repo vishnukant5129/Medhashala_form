@@ -1,23 +1,17 @@
-import Hero from '../components/Hero'
-import ProblemSection from '../components/ProblemSection'
-import Features from '../components/Features'
-import SurveyInsights from '../components/SurveyInsights'
-import WhyMedhashala from '../components/WhyMedhashala'
-import Testimonials from '../components/Testimonials'
-import FAQ from '../components/FAQ'
-import CTA from '../components/CTA'
+import Hero from '../components/common/Hero'
+import CTA from '../components/common/CTA'
+import RewardSection from '../components/common/RewardSection'
 
 const Home = () => {
   return (
     <>
       <Hero />
-      <ProblemSection />
-      <Features />
-      <SurveyInsights />
-      <WhyMedhashala />
-      <Testimonials />
-      <FAQ />
       <CTA />
+      <RewardSection
+        referrals={1}
+        referralCode="MS124"
+        status="Locked"
+      />
     </>
   )
 }

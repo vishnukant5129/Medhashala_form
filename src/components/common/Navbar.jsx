@@ -1,91 +1,135 @@
-import { useState } from "react";
-import { HiMenu, HiX } from "react-icons/hi";
-import ThemeToggle from "./ThemeToggle.jsx";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { COLORS } from "../../constants/colors";
+import { NAV_LINKS, CTA_BUTTON } from "../../constants/navLinks";
 
-const navLinks = [
-  "Home",
-  "Features",
-  "Why Medhashala",
-  "Survey",
-  "FAQ",
-];
-
-export default function Navbar() {
+const Navbar = () => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleNavigate = (item) => {
+    if (item.type === "route") {
+      navigate(item.path);
+    } else {
+      window.location.hash = item.path;
+    }
+    setMenuOpen(false);
+  };
+
+  const handleCTA = () => {
+    navigate(CTA_BUTTON.path);
+    setMenuOpen(false);
+  };
 
   return (
-    <nav className="fixed top-0 z-50 w-full backdrop-blur-xl bg-white/10 dark:bg-slate-900/20 border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <nav
+      style={{
+        backgroundColor: COLORS.white,
+        borderBottom: `1px solid ${COLORS.border}`,
+      }}
+      className="w-full px-6 py-4 flex items-center justify-between shadow-sm relative"
+    >
+      {/* Logo */}
+      <div
+        onClick={() => navigate("/")}
+        className="font-bold text-xl cursor-pointer tracking-wide"
+        style={{ color: COLORS.primary }}
+      >
+        MedhaShala
+      </div>
 
-        {/* Logo */}
-        <div className="flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-[#F4B400] flex items-center justify-center text-[#0B1F3A] font-bold text-xl">
-            M
-          </div>
-
-          <div>
-            <h1 className="font-bold text-xl text-[#0B1F3A] dark:text-white">
-              Medhashala
-            </h1>
-          </div>
-        </div>
-
-        {/* Desktop Links */}
-        <div className="hidden md:flex gap-8 text-slate-700 dark:text-slate-200">
-          {navLinks.map((item) => (
-            <a
-              key={item}
-              href="#"
-              className="hover:text-[#F4B400] duration-300"
+      {/* Desktop Menu */}
+      <div className="hidden md:flex gap-8 items-center font-medium">
+        {NAV_LINKS.map((item, index) =>
+          item.type === "route" ? (
+            <Link
+              key={index}
+              to={item.path}
+              style={{ color: COLORS.text }}
+              className="hover:text-[#F4B400] transition"
             >
-              {item}
+              {item.label}
+            </Link>
+          ) : (
+            <a
+              key={index}
+              href={item.path}
+              style={{ color: COLORS.text }}
+              className="hover:text-[#F4B400] transition"
+            >
+              {item.label}
             </a>
-          ))}
-        </div>
+          )
+        )}
+      </div>
 
-        <div className="hidden md:flex items-center gap-4">
-          <ThemeToggle />
-
-          <button className="bg-[#F4B400] px-5 py-3 rounded-xl font-semibold hover:scale-105 duration-300">
-            Fill Survey
-          </button>
-        </div>
+      {/* Right CTA */}
+      <div className="flex items-center gap-3">
+        <button
+          onClick={handleCTA}
+          style={{
+            backgroundColor: COLORS.accent,
+            color: COLORS.primary,
+          }}
+          className="px-4 py-2 rounded-lg font-semibold hover:scale-105 active:scale-95 transition"
+        >
+          {CTA_BUTTON.label}
+        </button>
 
         {/* Mobile Button */}
         <button
-          className="md:hidden text-3xl dark:text-white"
-          onClick={() => setOpen(!open)}
+          className="md:hidden text-3xl"
+          onClick={() => setMenuOpen(!menuOpen)}
+          style={{ color: COLORS.primary }}
         >
-          {open ? <HiX /> : <HiMenu />}
+          {menuOpen ? "✕" : "☰"}
         </button>
       </div>
 
       {/* Mobile Menu */}
-      {open && (
-        <div className="md:hidden bg-white dark:bg-slate-900 p-6 flex flex-col gap-5">
-
-          {navLinks.map((item) => (
-            <a
-              key={item}
-              href="#"
-              className="dark:text-white"
-            >
-              {item}
-            </a>
-          ))}
-
-          <ThemeToggle />
+      {menuOpen && (
+        <div
+          className="absolute top-full left-0 w-full md:hidden flex flex-col gap-4 p-6 shadow-md"
+          style={{ backgroundColor: COLORS.white }}
+        >
+          {NAV_LINKS.map((item, index) =>
+            item.type === "route" ? (
+              <Link
+                key={index}
+                to={item.path}
+                onClick={() => setMenuOpen(false)}
+                className="py-2 border-b"
+                style={{ color: COLORS.text }}
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <a
+                key={index}
+                href={item.path}
+                onClick={() => setMenuOpen(false)}
+                className="py-2 border-b"
+                style={{ color: COLORS.text }}
+              >
+                {item.label}
+              </a>
+            )
+          )}
 
           <button
-            onClick={() => navigate("/survey")}
-            className="bg-[#F4B400] py-3 px-5 rounded-xl font-semibold"
+            onClick={handleCTA}
+            style={{
+              backgroundColor: COLORS.accent,
+              color: COLORS.primary,
+            }}
+            className="mt-2 py-3 rounded-lg font-semibold"
           >
-            Fill Survey
+            {CTA_BUTTON.label}
           </button>
         </div>
       )}
     </nav>
   );
-}
+};
+
+export default Navbar;
