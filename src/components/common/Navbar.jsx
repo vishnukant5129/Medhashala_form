@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { COLORS } from "../../constants/colors";
 import { NAV_LINKS, CTA_BUTTON } from "../../constants/navLinks";
 
@@ -11,8 +11,13 @@ const Navbar = () => {
     if (item.type === "route") {
       navigate(item.path);
     } else {
-      window.location.hash = item.path;
+      const sectionId = item.path.replace("#", "");
+
+      document.getElementById(sectionId)?.scrollIntoView({
+        behavior: "smooth",
+      });
     }
+
     setMenuOpen(false);
   };
 
@@ -23,64 +28,53 @@ const Navbar = () => {
 
   return (
     <nav
+      className="sticky top-0 z-50 w-full px-6 py-4 flex items-center justify-between shadow-sm backdrop-blur-lg"
       style={{
-        backgroundColor: COLORS.white,
+        backgroundColor: "rgba(255,255,255,0.9)",
         borderBottom: `1px solid ${COLORS.border}`,
       }}
-      className="w-full px-6 py-4 flex items-center justify-between shadow-sm relative"
     >
       {/* Logo */}
       <div
         onClick={() => navigate("/")}
-        className="font-bold text-xl cursor-pointer tracking-wide"
+        className="text-2xl font-bold cursor-pointer tracking-wide"
         style={{ color: COLORS.primary }}
       >
         MedhaShala
       </div>
 
       {/* Desktop Menu */}
-      <div className="hidden md:flex gap-8 items-center font-medium">
-        {NAV_LINKS.map((item, index) =>
-          item.type === "route" ? (
-            <Link
-              key={index}
-              to={item.path}
-              style={{ color: COLORS.text }}
-              className="hover:text-[#F4B400] transition"
-            >
-              {item.label}
-            </Link>
-          ) : (
-            <a
-              key={index}
-              href={item.path}
-              style={{ color: COLORS.text }}
-              className="hover:text-[#F4B400] transition"
-            >
-              {item.label}
-            </a>
-          )
-        )}
+      <div className="hidden md:flex items-center gap-8">
+        {NAV_LINKS.map((item, index) => (
+          <button
+            key={index}
+            onClick={() => handleNavigate(item)}
+            className="font-medium hover:text-[#F4B400] transition duration-300"
+            style={{ color: COLORS.text }}
+          >
+            {item.label}
+          </button>
+        ))}
       </div>
 
-      {/* Right CTA */}
-      <div className="flex items-center gap-3">
+      {/* Right Side */}
+      <div className="flex items-center gap-4">
         <button
           onClick={handleCTA}
+          className="hidden md:block px-5 py-2 rounded-xl font-semibold hover:scale-105 active:scale-95 transition"
           style={{
             backgroundColor: COLORS.accent,
             color: COLORS.primary,
           }}
-          className="px-4 py-2 rounded-lg font-semibold hover:scale-105 active:scale-95 transition"
         >
           {CTA_BUTTON.label}
         </button>
 
-        {/* Mobile Button */}
+        {/* Mobile Menu Button */}
         <button
           className="md:hidden text-3xl"
-          onClick={() => setMenuOpen(!menuOpen)}
           style={{ color: COLORS.primary }}
+          onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? "✕" : "☰"}
         </button>
@@ -89,40 +83,33 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div
-          className="absolute top-full left-0 w-full md:hidden flex flex-col gap-4 p-6 shadow-md"
-          style={{ backgroundColor: COLORS.white }}
+          className="absolute top-full left-0 w-full p-6 shadow-lg md:hidden flex flex-col gap-5"
+          style={{
+            backgroundColor: COLORS.white,
+            borderBottom: `1px solid ${COLORS.border}`,
+          }}
         >
-          {NAV_LINKS.map((item, index) =>
-            item.type === "route" ? (
-              <Link
-                key={index}
-                to={item.path}
-                onClick={() => setMenuOpen(false)}
-                className="py-2 border-b"
-                style={{ color: COLORS.text }}
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <a
-                key={index}
-                href={item.path}
-                onClick={() => setMenuOpen(false)}
-                className="py-2 border-b"
-                style={{ color: COLORS.text }}
-              >
-                {item.label}
-              </a>
-            )
-          )}
+          {NAV_LINKS.map((item, index) => (
+            <button
+              key={index}
+              onClick={() => handleNavigate(item)}
+              className="text-left py-2 border-b hover:text-[#F4B400] transition"
+              style={{
+                color: COLORS.text,
+                borderColor: COLORS.border,
+              }}
+            >
+              {item.label}
+            </button>
+          ))}
 
           <button
             onClick={handleCTA}
+            className="mt-3 py-3 rounded-xl font-semibold"
             style={{
               backgroundColor: COLORS.accent,
               color: COLORS.primary,
             }}
-            className="mt-2 py-3 rounded-lg font-semibold"
           >
             {CTA_BUTTON.label}
           </button>

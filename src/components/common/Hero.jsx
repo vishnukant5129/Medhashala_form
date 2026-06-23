@@ -1,167 +1,116 @@
 import { motion } from "framer-motion";
-import {
-  FaBrain,
-  FaUserFriends,
-  FaGift,
-  FaFileAlt,
-} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { COLORS } from "../../constants/colors";
 
 export default function Hero() {
   const navigate = useNavigate();
 
+  // Animation variants for the container and children
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+  };
+
+  const features = [
+    { icon: "📝", title: "Survey", desc: "Share your experience" },
+    { icon: "👥", title: "Friends", desc: "Invite your peers" },
+    { icon: "🧠", title: "AI Tools", desc: "Smart assistant suite" },
+    { icon: "🎁", title: "Rewards", desc: "Unlock exclusive perks" },
+  ];
+
   return (
-    <section className="min-h-screen flex items-center pt-28 bg-gradient-to-br from-[#F8FAFC] via-white to-[#FFF8E1] dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+    <section
+      className="flex items-center relative overflow-hidden  lg:py-5"
+      style={{
+        background: `linear-gradient(135deg, ${COLORS.background} 0%, #ffffff 50%, #fff7e6 100%)`,
+      }}
+    >
+      {/* Decorative Background Glows */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-100 rounded-full blur-3xl opacity-60 pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-50 rounded-full blur-3xl opacity-60 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
 
-        {/* LEFT SIDE */}
+        {/* LEFT COLUMN: Content */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
+          {/* <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 font-semibold text-sm shadow-sm border backdrop-blur-sm"
+            style={{ backgroundColor: "rgba(255, 243, 196, 0.7)", color: COLORS.primary, borderColor: "#ffe69c" }}
+          >
+            <span className="animate-pulse">🚀</span> MedhaShala AI Campaign
+          </div> */}
 
-          {/* Badge */}
-          <div className="inline-block px-4 py-2 rounded-full bg-yellow-100 text-[#F4B400] font-medium mb-6">
-            MedhaShala AI Learning Campaign
-          </div>
-
-          {/* HUMAN TITLE */}
-          <h1 className="text-5xl lg:text-6xl font-bold leading-tight text-[#0B1F3A] dark:text-white">
-            Learn something useful.
-            <br />
-            Share it with friends.
-            <br />
-            Get rewarded for it.
+          <h1
+            className="text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]"
+            style={{ color: COLORS.primary }}
+          >
+            Learn <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">smarter</span>.<br />
+            Share faster.<br />
+            Get rewarded.
           </h1>
 
-          {/* HUMAN DESCRIPTION */}
-          <p className="mt-8 text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-            We’re building MedhaShala to understand how students learn and what
-            really helps them grow.
-            <br /><br />
-            Just fill a short survey and invite 3 friends — and we’ll unlock
-            exclusive AI learning resources for you.
+          <p className="mt-6 text-lg text-slate-600 max-w-lg leading-relaxed">
+            Help shape the future of educational AI tools. Complete a quick survey and unlock curated academic rewards.
           </p>
 
-          {/* WHAT USER GETS */}
-          <div className="mt-6 space-y-2 text-slate-600 dark:text-slate-300">
-            <p>✔ AI Prompt Templates that save your time</p>
-            <p>✔ Simple AI tools guide for students</p>
-            <p>✔ Access to ₹29 AI workshop series</p>
-          </div>
-
-          {/* CTA */}
-          <div className="flex gap-5 mt-10 flex-wrap">
+          <div className="flex gap-4 mt-10 flex-wrap">
             <button
               onClick={() => navigate("/survey")}
-              style={{
-                backgroundColor: COLORS.accent,
-                color: COLORS.primary,
-              }}
-              className="px-8 py-4 rounded-2xl font-bold shadow-xl hover:scale-105 active:scale-95 duration-300"
+              className="px-8 py-4 rounded-2xl font-bold shadow-lg shadow-amber-500/20 hover:shadow-xl hover:shadow-amber-500/30 active:scale-95 transition-all duration-200"
+              style={{ backgroundColor: COLORS.accent, color: COLORS.primary }}
             >
-              Start Survey (2 min) 🚀
+              🚀 Start Survey
             </button>
 
-            <button
-              onClick={() =>
-                document.getElementById("rewards")?.scrollIntoView({
-                  behavior: "smooth",
-                })
-              }
-              className="px-8 py-4 rounded-2xl border border-gray-300 dark:border-gray-700 text-slate-700 dark:text-white hover:scale-105 duration-300"
+            {/* <button
+              className="px-8 py-4 rounded-2xl border font-semibold bg-white/80 backdrop-blur-sm hover:bg-slate-50 active:scale-95 transition-all duration-200"
+              style={{ borderColor: COLORS.border, color: COLORS.text }}
             >
-              See what you’ll get 🎁
-            </button>
-          </div>
-
-          {/* TRUST LINE */}
-          <div className="mt-10 flex flex-wrap gap-6 text-sm text-slate-500 dark:text-slate-400">
-            <p>⏱ Takes less than 2 minutes</p>
-            <p>👥 Invite 3 friends to unlock</p>
-            <p>🔒 No spam, only learning insights</p>
+              🎁 View Rewards
+            </button> */}
           </div>
         </motion.div>
 
-        {/* RIGHT SIDE */}
+        {/* RIGHT COLUMN: Grid Cards */}
         <motion.div
-          initial={{ opacity: 0, x: 60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="relative"
+          className="grid grid-cols-2 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
         >
+          {features.map((item, i) => (
+            <motion.div
+              key={i}
+              variants={cardVariants}
+              whileHover={{ y: -6, scale: 1.02 }}
+              className="p-6 rounded-3xl border shadow-sm hover:shadow-xl transition-all duration-300 bg-white/90 backdrop-blur-sm group cursor-pointer"
+              style={{ borderColor: COLORS.border }}
+            >
+              <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                {item.icon}
+              </div>
 
-          {/* MAIN CARD */}
-          <div className="backdrop-blur-xl bg-white/30 dark:bg-slate-800/30 border border-white/20 rounded-3xl p-8 shadow-2xl">
+              <h3 className="mt-5 font-bold text-xl" style={{ color: COLORS.primary }}>
+                {item.title}
+              </h3>
 
-            <div className="grid grid-cols-2 gap-6">
-
-              <motion.div
-                animate={{ y: [-8, 8, -8] }}
-                transition={{ repeat: Infinity, duration: 3 }}
-                className="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-lg"
-              >
-                <FaFileAlt className="text-4xl text-[#F4B400]" />
-                <h3 className="mt-4 font-semibold dark:text-white">
-                  Quick Survey
-                </h3>
-                <p className="text-sm text-slate-500 mt-1">
-                  Just honest answers
-                </p>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [8, -8, 8] }}
-                transition={{ repeat: Infinity, duration: 3 }}
-                className="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-lg"
-              >
-                <FaUserFriends className="text-4xl text-[#F4B400]" />
-                <h3 className="mt-4 font-semibold dark:text-white">
-                  Share with Friends
-                </h3>
-                <p className="text-sm text-slate-500 mt-1">
-                  Invite 3 people
-                </p>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [-8, 8, -8] }}
-                transition={{ repeat: Infinity, duration: 3 }}
-                className="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-lg"
-              >
-                <FaBrain className="text-4xl text-[#F4B400]" />
-                <h3 className="mt-4 font-semibold dark:text-white">
-                  AI Learning
-                </h3>
-                <p className="text-sm text-slate-500 mt-1">
-                  Practical skills
-                </p>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [8, -8, 8] }}
-                transition={{ repeat: Infinity, duration: 3 }}
-                className="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-lg"
-              >
-                <FaGift className="text-4xl text-[#F4B400]" />
-                <h3 className="mt-4 font-semibold dark:text-white">
-                  Rewards
-                </h3>
-                <p className="text-sm text-slate-500 mt-1">
-                  Unlock instantly
-                </p>
-              </motion.div>
-
-            </div>
-          </div>
-
-          {/* SOFT GLOW */}
-          <div className="absolute -top-6 -left-6 h-24 w-24 rounded-full bg-yellow-300 blur-3xl opacity-30"></div>
-          <div className="absolute bottom-0 right-0 h-32 w-32 rounded-full bg-blue-300 blur-3xl opacity-30"></div>
-
+              <p className="text-sm text-slate-500 mt-1 leading-normal">
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
         </motion.div>
 
       </div>
