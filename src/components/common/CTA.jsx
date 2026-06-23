@@ -5,7 +5,7 @@ export default function CTA() {
   const navigate = useNavigate();
 
   return (
-    <section id="cta" className="py-28 px-6">
+    <section id="cta" className="py-15 px-6">
 
       <motion.div
         whileHover={{ scale: 1.01 }}
