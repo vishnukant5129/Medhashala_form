@@ -1,22 +1,21 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { COLORS } from "../../constants/colors";
 
 export default function Hero() {
   const navigate = useNavigate();
 
-  // Animation variants for the container and children
+  // एनिमेशन वेरिएंट्स
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 }
+      transition: { staggerChildren: 0.12 }
     }
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 120 } }
   };
 
   const features = [
@@ -27,93 +26,107 @@ export default function Hero() {
   ];
 
   return (
-    <section
-      className="flex items-center relative overflow-hidden  lg:py-5"
-      style={{
-        background: `linear-gradient(135deg, ${COLORS.background} 0%, #ffffff 50%, #fff7e6 100%)`,
-      }}
-    >
-      {/* Decorative Background Glows */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-100 rounded-full blur-3xl opacity-60 pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-50 rounded-full blur-3xl opacity-60 pointer-events-none" />
+    <section className="relative w-full min-h-screen flex flex-col justify-center bg-[#0a071b] overflow-hidden py-12 md:py-20">
 
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+      {/* Background Image Wrapper */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none opacity-40 mix-blend-lighten">
+        <img
+          src="src/assets/Medhashala4.jpeg" // ध्यान दें: बैकस्लैश '\' को फॉरवर्ड स्लैश '/' से बदला गया है
+          alt="Hero Background"
+          className="w-full h-full object-cover object-right lg:object-center"
+        />
+      </div>
 
-        {/* LEFT COLUMN: Content */}
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          {/* <div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 font-semibold text-sm shadow-sm border backdrop-blur-sm"
-            style={{ backgroundColor: "rgba(255, 243, 196, 0.7)", color: COLORS.primary, borderColor: "#ffe69c" }}
+
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+        {/* Left Side: Content Area */}
+        <div className="lg:col-span-7 flex flex-col items-start text-left">
+
+          {/* MAP Badge */}
+          <motion.span
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="px-3.5 py-1 bg-blue-600/20 text-blue-400 text-xs font-bold uppercase tracking-widest rounded-lg mb-6 border border-blue-500/30"
           >
-            <span className="animate-pulse">🚀</span> MedhaShala AI Campaign
-          </div> */}
+            MAP
+          </motion.span>
 
-          <h1
-            className="text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]"
-            style={{ color: COLORS.primary }}
+          {/* Main Heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight"
           >
-            Learn <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">smarter</span>.<br />
-            Share faster.<br />
-            Get rewarded.
-          </h1>
+            MAP (MedhaShala <br className="hidden md:inline" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300">
+              Accountability Partner
+            </span>)
+          </motion.h1>
 
-          <p className="mt-6 text-lg text-slate-600 max-w-lg leading-relaxed">
-            Help shape the future of educational AI tools. Complete a quick survey and unlock curated academic rewards.
-          </p>
+          {/* Sub-heading */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="mt-4 text-lg md:text-xl font-medium text-gray-300"
+          >
+            Stay Consistent. Stay Accountable. Achieve Your Goals.
+          </motion.p>
 
-          <div className="flex gap-4 mt-10 flex-wrap">
-            <button
-              onClick={() => navigate("/survey")}
-              className="px-8 py-4 rounded-2xl font-bold shadow-lg shadow-amber-500/20 hover:shadow-xl hover:shadow-amber-500/30 active:scale-95 transition-all duration-200"
-              style={{ backgroundColor: COLORS.accent, color: COLORS.primary }}
-            >
-              🚀 Start Survey
-            </button>
+          {/* Description Paragraphs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mt-6 space-y-4 max-w-2xl text-base md:text-lg text-gray-400 leading-relaxed"
+          >
+            <p>
+              We're building MAP to help students, professionals, founders, and learners
+              stay productive, accountable, and consistent in achieving their goals.
+            </p>
+            <p className="text-gray-300 text-sm md:text-base font-normal  p-4">
+              💡Take this quick 2-minute survey and help us understand the challenges
+              people face while building better habits, routines, and productivity systems.
+            </p>
+          </motion.div>
 
-            {/* <button
-              className="px-8 py-4 rounded-2xl border font-semibold bg-white/80 backdrop-blur-sm hover:bg-slate-50 active:scale-95 transition-all duration-200"
-              style={{ borderColor: COLORS.border, color: COLORS.text }}
-            >
-              🎁 View Rewards
-            </button> */}
-          </div>
-        </motion.div>
+          {/* Action Buttons */}
 
-        {/* RIGHT COLUMN: Grid Cards */}
+        </div>
+
+        {/* Right Side: Spacer for Background Graphic (Optional Placeholder for Desktop Layout) */}
+        <div className="hidden lg:block lg:col-span-5 h-[400px]" />
+
+      </div>
+
+      {/* Features Grid Area */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full mt-16 lg:mt-24">
         <motion.div
-          className="grid grid-cols-2 gap-6"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full"
         >
-          {features.map((item, i) => (
+          {features.map((feature, index) => (
             <motion.div
-              key={i}
+              key={index}
               variants={cardVariants}
-              whileHover={{ y: -6, scale: 1.02 }}
-              className="p-6 rounded-3xl border shadow-sm hover:shadow-xl transition-all duration-300 bg-white/90 backdrop-blur-sm group cursor-pointer"
-              style={{ borderColor: COLORS.border }}
+              whileHover={{ scale: 1.03, y: -4 }}
+              className="p-5 bg-white/[0.02] rounded-2xl border border-white/5 backdrop-blur-lg flex flex-col items-start text-left transition-colors duration-300 hover:bg-white/[0.05] hover:border-white/10"
             >
-              <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300 shadow-inner">
-                {item.icon}
+              <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xl mb-3 shadow-sm">
+                {feature.icon}
               </div>
-
-              <h3 className="mt-5 font-bold text-xl" style={{ color: COLORS.primary }}>
-                {item.title}
-              </h3>
-
-              <p className="text-sm text-slate-500 mt-1 leading-normal">
-                {item.desc}
-              </p>
+              <h3 className="font-bold text-base text-white">{feature.title}</h3>
+              <p className="text-xs text-gray-400 mt-1.5 leading-normal">{feature.desc}</p>
             </motion.div>
           ))}
         </motion.div>
-
       </div>
+
     </section>
   );
 }

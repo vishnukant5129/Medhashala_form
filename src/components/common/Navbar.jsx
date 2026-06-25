@@ -1,24 +1,53 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+
+import logo from "../../assets/Medhashala2.jpeg";
+
 import { COLORS } from "../../constants/colors";
-import { NAV_LINKS, CTA_BUTTON } from "../../constants/navLinks";
+import {
+  NAV_LINKS,
+  CTA_BUTTON,
+} from "../../constants/navLinks";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleNavigate = (item) => {
+    setMenuOpen(false);
+
+    // Route Navigation
     if (item.type === "route") {
       navigate(item.path);
-    } else {
-      const sectionId = item.path.replace("#", "");
-
-      document.getElementById(sectionId)?.scrollIntoView({
-        behavior: "smooth",
-      });
+      return;
     }
 
-    setMenuOpen(false);
+    // Anchor Navigation
+    if (item.type === "anchor") {
+      if (location.pathname !== "/") {
+        navigate("/", {
+          state: {
+            scrollTo: item.path,
+          },
+        });
+
+        return;
+      }
+
+      const sectionId = item.path.replace("#", "");
+
+      document
+        .getElementById(sectionId)
+        ?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+    }
   };
 
   const handleCTA = () => {
@@ -27,95 +56,194 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className="sticky top-0 z-50 w-full px-6 py-4 flex items-center justify-between shadow-sm backdrop-blur-lg"
-      style={{
-        backgroundColor: "rgba(255,255,255,0.9)",
-        borderBottom: `1px solid ${COLORS.border}`,
-      }}
-    >
-      {/* Logo */}
-      <div
-        onClick={() => navigate("/")}
-        className="text-2xl font-bold cursor-pointer tracking-wide"
-        style={{ color: COLORS.primary }}
+    <>
+      <nav
+        className="
+        sticky
+        top-0
+        z-50
+        w-full
+        border-b
+        border-white/10
+        bg-[#0B1020]/80
+        backdrop-blur-xl
+        px-6
+        lg:px-12
+        py-4
+      "
       >
-        MedhaShala
-      </div>
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* Logo */}
 
-      {/* Desktop Menu */}
-      <div className="hidden md:flex items-center gap-8">
-        {NAV_LINKS.map((item, index) => (
-          <button
-            key={index}
-            onClick={() => handleNavigate(item)}
-            className="font-medium hover:text-[#F4B400] transition duration-300"
-            style={{ color: COLORS.text }}
+          <div
+            onClick={() => navigate("/")}
+            className="
+            flex
+            items-center
+            gap-3
+            cursor-pointer
+            select-none
+          "
           >
-            {item.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Right Side */}
-      <div className="flex items-center gap-4">
-        <button
-          onClick={handleCTA}
-          className="hidden md:block px-5 py-2 rounded-xl font-semibold hover:scale-105 active:scale-95 transition"
-          style={{
-            backgroundColor: COLORS.accent,
-            color: COLORS.primary,
-          }}
-        >
-          {CTA_BUTTON.label}
-        </button>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-3xl"
-          style={{ color: COLORS.primary }}
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div
-          className="absolute top-full left-0 w-full p-6 shadow-lg md:hidden flex flex-col gap-5"
-          style={{
-            backgroundColor: COLORS.white,
-            borderBottom: `1px solid ${COLORS.border}`,
-          }}
-        >
-          {NAV_LINKS.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => handleNavigate(item)}
-              className="text-left py-2 border-b hover:text-[#F4B400] transition"
-              style={{
-                color: COLORS.text,
-                borderColor: COLORS.border,
-              }}
+            <div
+              className="
+              w-12
+              h-12
+              overflow-hidden
+              rounded-xl
+              border
+              border-white/10
+              shadow-lg
+            "
             >
-              {item.label}
+              <img
+                src={logo}
+                alt="MedhaShala"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <div>
+              <h2 className="text-white font-bold text-lg">
+                MedhaShala
+              </h2>
+
+              <p className="text-xs text-gray-400">
+                Survey & Rewards
+              </p>
+            </div>
+          </div>
+
+          {/* Desktop Menu */}
+
+          <div className="hidden md:flex items-center gap-8">
+            {NAV_LINKS.map((item) => (
+              <button
+                key={item.label}
+                onClick={() =>
+                  handleNavigate(item)
+                }
+                className={`
+                  transition-all
+                  duration-300
+                  font-medium
+
+                  ${location.pathname === item.path
+                    ? "text-yellow-400"
+                    : "text-gray-300 hover:text-yellow-400"
+                  }
+                `}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {/* CTA */}
+
+          <div className="hidden md:flex">
+            <button
+              onClick={handleCTA}
+              className="
+              px-5
+              py-2.5
+              rounded-xl
+              font-semibold
+              text-black
+              bg-gradient-to-r
+              from-yellow-400
+              to-orange-500
+              hover:scale-105
+              active:scale-95
+              transition-all
+              duration-300
+              shadow-lg
+            "
+            >
+              {CTA_BUTTON.label}
             </button>
-          ))}
+          </div>
+
+          {/* Mobile Toggle */}
 
           <button
-            onClick={handleCTA}
-            className="mt-3 py-3 rounded-xl font-semibold"
-            style={{
-              backgroundColor: COLORS.accent,
-              color: COLORS.primary,
-            }}
+            onClick={() =>
+              setMenuOpen(!menuOpen)
+            }
+            className="
+            md:hidden
+            text-white
+            text-3xl
+          "
           >
-            {CTA_BUTTON.label}
+            {menuOpen ? "✕" : "☰"}
           </button>
         </div>
-      )}
-    </nav>
+
+        {/* Mobile Menu */}
+
+        <div
+          className={`
+          md:hidden
+          overflow-hidden
+          transition-all
+          duration-300
+
+          ${menuOpen
+              ? "max-h-96 opacity-100 mt-5"
+              : "max-h-0 opacity-0"
+            }
+        `}
+        >
+          <div
+            className="
+            flex
+            flex-col
+            gap-4
+            bg-[#111827]
+            border
+            border-white/10
+            rounded-2xl
+            p-5
+            mt-2
+          "
+          >
+            {NAV_LINKS.map((item) => (
+              <button
+                key={item.label}
+                onClick={() =>
+                  handleNavigate(item)
+                }
+                className="
+                text-left
+                text-gray-300
+                hover:text-yellow-400
+                transition
+              "
+              >
+                {item.label}
+              </button>
+            ))}
+
+            <button
+              onClick={handleCTA}
+              className="
+              mt-2
+              py-3
+              rounded-xl
+              font-semibold
+              text-black
+              bg-gradient-to-r
+              from-yellow-400
+              to-orange-500
+            "
+            >
+              {CTA_BUTTON.label}
+            </button>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 };
 
