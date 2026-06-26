@@ -1,64 +1,64 @@
 export const surveyData = [
     {
-        section: "Basic Information",
+        section: "Personal Information",
+        description: "Basic details required for your profile",
         questions: [
             {
-                id: "q1",
+                id: "fullName",
                 type: "text",
-                label: "Question 1: Name",
-                required: true,
+                label: "Full Name",
+                placeholder: "Enter your full name",
+                // required: true,
+                grid: "col-span-1",
             },
             {
-                id: "q2",
-                type: "radio",
-                label: "Question 2: What is your age group?",
-                options: [
-                    "Under 18",
-                    "18 – 21",
-                    "22 – 25",
-                    "26 – 30",
-                    "31 and above",
-                ],
+                id: "email",
+                type: "email",
+                label: "Email Address",
+                placeholder: "Enter your email",
+                // required: true,
+                grid: "col-span-1",
             },
             {
-                id: "q3",
-                type: "radio",
-                label: "Question 3: What best describes your current status?",
-                options: [
-                    "School Student",
-                    "Undergraduate Student",
-                    "Postgraduate Student",
-                    "Working Professional",
-                    "Startup Founder / Entrepreneur",
-                    "Freelancer / Digital Creator",
-                    "Self-Learner / Skill Builder",
-                ],
+                id: "phone",
+                type: "text",
+                label: "Phone Number",
+                placeholder: "Enter your phone number",
+                // required: true,
+                grid: "col-span-1",
             },
             {
-                id: "q4",
-                type: "radio",
-                label: "Question 4: What is your primary field?",
-                options: [
-                    "Engineering / Technology",
-                    "Business / Finance / MBA",
-                    "Design / Creative Arts",
-                    "Medicine / Healthcare",
-                    "Law",
-                    "Commerce / Accounting",
-                    "Humanities / Social Sciences",
-                    "Other",
-                ],
+                id: "college",
+                type: "text",
+                label: "College Name",
+                placeholder: "Enter your college name",
+                // required: true,
+                grid: "col-span-1",
             },
             {
-                id: "q5",
-                type: "radio",
-                label: "Question 5: Where are you based?",
-                options: [
-                    "Metro City",
-                    "Tier 2 City",
-                    "Tier 3 City or Town",
-                    "Outside India",
-                ],
+                id: "branch",
+                type: "text",
+                label: "Course / Branch",
+                placeholder: "B.tech/CSE",
+                // required: true,
+                grid: "col-span-1",
+            },
+            {
+                id: "year",
+                type: "select",
+                label: "Year of Study",
+                placeholder: "Select your year",
+                // required: true,
+                options: ["1st Year", "2nd Year", "3rd Year", "4th Year"],
+                grid: "col-span-1",
+            },
+            {
+                id: "referralCode",
+                type: "text",
+                label: "Referral Code (Optional)",
+                placeholder: "Enter referral code",
+                required: false,
+                grid: "col-span-2",
             },
         ],
     },
@@ -345,4 +345,79 @@ export const surveyData = [
             },
         ],
     },
-];
+]
+
+
+// export const surveyData = [
+
+
+
+// ];
+
+
+
+
+// {
+//         section: "Personal Information",
+//         questions: [
+//             {
+//                 id: "q1",
+//                 type: "text",
+//                 label: "Full Name",
+//                 placeholder: "Enter your full name",
+//                 required: true,
+//             },
+//             {
+//                 id: "q2",
+//                 type: "radio",
+//                 label: "Question 2: What is your age group?",
+//                 options: [
+//                     "Under 18",
+//                     "18 – 21",
+//                     "22 – 25",
+//                     "26 – 30",
+//                     "31 and above",
+//                 ],
+//             },
+//             {
+//                 id: "q3",
+//                 type: "radio",
+//                 label: "Question 3: What best describes your current status?",
+//                 options: [
+//                     "School Student",
+//                     "Undergraduate Student",
+//                     "Postgraduate Student",
+//                     "Working Professional",
+//                     "Startup Founder / Entrepreneur",
+//                     "Freelancer / Digital Creator",
+//                     "Self-Learner / Skill Builder",
+//                 ],
+//             },
+//             {
+//                 id: "q4",
+//                 type: "radio",
+//                 label: "Question 4: What is your primary field?",
+//                 options: [
+//                     "Engineering / Technology",
+//                     "Business / Finance / MBA",
+//                     "Design / Creative Arts",
+//                     "Medicine / Healthcare",
+//                     "Law",
+//                     "Commerce / Accounting",
+//                     "Humanities / Social Sciences",
+//                     "Other",
+//                 ],
+//             },
+//             {
+//                 id: "q5",
+//                 type: "radio",
+//                 label: "Question 5: Where are you based?",
+//                 options: [
+//                     "Metro City",
+//                     "Tier 2 City",
+//                     "Tier 3 City or Town",
+//                     "Outside India",
+//                 ],
+//             },
+//         ],
+//     },

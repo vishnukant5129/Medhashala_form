@@ -3,16 +3,16 @@ import PersonalInformation from "./PersonalInformation.jsx";
 import Stepper from "../common/Stepper.jsx";
 import { ArrowRight } from "lucide-react";
 import Submitted from "./Submitted.jsx";
+import SurveyQuestions from "./SurveyQuestions.jsx";
 
 const SurveyForm = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({});
 
-    // Aapke paas 3 steps hain: 1-Personal, 2-Survey, 3-Submitted/Finish
     const totalSteps = 3;
 
     const handleNext = (e) => {
-        e.preventDefault(); // Form reload ya page refresh rokne ke liye
+        e.preventDefault();
 
         if (currentStep < totalSteps) {
             setCurrentStep((prev) => prev + 1);
@@ -27,19 +27,17 @@ const SurveyForm = () => {
 
     return (
         <div className="min-h-screen min-w-screen flex items-center justify-center bg-gray-100 p-6 flex-col">
-            {/* Jab step 3 (Submitted) nahi hai, tabhi form aur header dikhao */}
             {currentStep !== totalSteps ? (
                 <>
                     <h1 className="text-4xl font-bold mb-6">Survey Form</h1>
 
                     <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-3xl">
-                        {/* Stepper Top Visualization */}
+
                         <Stepper currentStep={currentStep} />
 
-                        {/* Main Dynamic Form Content */}
                         <form onSubmit={handleNext} className="mt-12">
 
-                            {/* Step 1: Personal Info */}
+
                             {currentStep === 1 && (
                                 <PersonalInformation
                                     formData={formData}
@@ -47,15 +45,12 @@ const SurveyForm = () => {
                                 />
                             )}
 
-                            {/* Step 2: Survey (Yahan apna Survey details component lagayein) */}
                             {currentStep === 2 && (
                                 <div className="text-center py-10 text-gray-500">
-                                    📊 Survey Questions Component Here
-                                    {/* <SurveyQuestions formData={formData} setFormData={setFormData} /> */}
+                                    <SurveyQuestions />
                                 </div>
                             )}
 
-                            {/* --- ACTIONS BUTTONS --- */}
                             <div className="mt-8 flex justify-between items-center border-t pt-4">
                                 <button
                                     type="button"
@@ -70,7 +65,6 @@ const SurveyForm = () => {
                                     type="submit"
                                     className="bg-[#1e2a78] text-white px-6 py-2.5 rounded-xl flex items-center justify-center gap-2 hover:scale-105 transition"
                                 >
-                                    {/* Kyunki Step 3 direct success screen hai, to step 2 par hi 'Submit' ya 'Finish' dikhega */}
                                     {currentStep === totalSteps - 1 ? "Submit" : "Next"}
                                     <ArrowRight size={18} />
                                 </button>
