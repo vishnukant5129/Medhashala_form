@@ -1,9 +1,13 @@
 import { useMemo, useState } from "react";
 import { surveyData } from "../../constants/surveyData";
 import Question from "./Question";
+import { useNavigate } from "react-router-dom";
 
 export default function SurveyForm() {
     const [formData, setFormData] = useState({});
+
+    const navigate = useNavigate();
+
 
     // 🔥 Handle both radio/text AND checkbox
     const handleChange = (id, value, type, option) => {
@@ -54,6 +58,10 @@ export default function SurveyForm() {
 
         console.log("Survey Data:", formData);
         alert("🚀 Survey Submitted Successfully!");
+
+      
+
+        navigate("/submitted");
     };
 
     // 🔥 Progress calculation
