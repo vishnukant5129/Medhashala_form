@@ -5,15 +5,15 @@ export const NAV_LINKS = [
         path: "/",
     },
     {
-        label: "Rewards",
-        type: "anchor",
-        path: "#rewards",
+        label: "Survey",
+        type: "route",
+        path: "/survey",
     },
     {
-        label: "About",
-        type: "anchor",
-        path: "#about",
-    },
+        label: "Dashboard",
+        type: "route",
+        path: "/dashboard",
+    }
 ];
 
 export const CTA_BUTTON = {
