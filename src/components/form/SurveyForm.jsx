@@ -16,6 +16,7 @@ const SurveyForm = () => {
 
         if (currentStep < totalSteps) {
             setCurrentStep((prev) => prev + 1);
+            localStorage.setItem("surveyData", JSON.stringify(formData))
         }
     };
 
@@ -47,7 +48,10 @@ const SurveyForm = () => {
 
                             {currentStep === 2 && (
                                 <div className="text-center py-10 text-gray-500">
-                                    <SurveyQuestions />
+                                    <SurveyQuestions
+                                        formData={formData}
+                                        setFormData={setFormData}
+                                    />
                                 </div>
                             )}
 
