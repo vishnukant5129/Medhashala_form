@@ -7,6 +7,8 @@ import {
 } from "react-icons/fa";
 
 import { motion } from "framer-motion";
+import React from "react";
+import logo from "../../assets/Medhashala.jpeg";
 
 export default function Footer() {
   return (
@@ -20,8 +22,8 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3">
 
-              <div className="w-12 h-12 rounded-2xl bg-[#F4B400] flex items-center justify-center">
-                <FaBrain className="text-[#0B1F3A] text-xl" />
+              <div className="w-12 h-12 overflow-hidden rounded-xl border border-white/10 shadow-lg">
+                <img src={logo} alt="MedhaShala" className="w-full h-full object-cover" />
               </div>
 
               <h1 className="text-3xl font-bold text-[#0B1F3A] dark:text-white">
