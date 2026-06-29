@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import { Bell, Copy, CheckCircle2, BookOpen, Gift, ArrowRight } from 'lucide-react';
+import { color, progress } from 'framer-motion';
 
 const Dashboard = () => {
     const [copied, setCopied] = useState(false);
+    const [progress, setProgress] = useState(0);
     const referralCode = "MS001";
+
+    const getWidth = (progress) => {
+        if (progress === 1) return "33.33%";
+        if (progress === 2) return "66.66%";
+        if (progress === 3) return "100%";
+        return "0%";
+    };
+
+    const getColor = (progress) => {
+        if (progress === 0) return "bg-white";
+        return "bg-emerald-500";
+    };
 
     const handleCopy = () => {
         navigator.clipboard.writeText(referralCode);
@@ -64,12 +78,15 @@ const Dashboard = () => {
                     <div className="border border-slate-100 bg-white shadow-xs rounded-2xl p-6 flex flex-col justify-between">
                         <div className="flex justify-between items-center mb-3">
                             <span className="text-sm font-bold text-[#0B1F3A]">Referral Progress</span>
-                            <span className="text-base font-black text-emerald-600 tracking-wide">3 / 3</span>
+                            <span className="text-base font-black text-emerald-600 tracking-wide">{progress} / 3</span>
                         </div>
 
                         {/* Progress Bar */}
                         <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
-                            <div className="h-full bg-emerald-500 rounded-full w-full transition-all duration-500" />
+                            <div
+                                className={`h-full rounded-full bg-emerald-500 transition-all duration-700 ease-in-out`}
+                                style={{ width: getWidth(progress) }}
+                            />
                         </div>
 
                         <p className="text-xs font-bold text-emerald-600 mt-3">
