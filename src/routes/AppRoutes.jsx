@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
-import Home from "../pages/Home";
-import SurveyForm from "../components/form/SurveyForm";
+import Home from "../pages/Home.jsx";
+import SurveyForm from "../components/form/SurveyForm.jsx";
 import Dashboard from "../pages/Dashboard";
 import Payment from "../pages/payment";
 
