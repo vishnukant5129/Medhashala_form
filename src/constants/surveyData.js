@@ -4,7 +4,7 @@ export const surveyData = [
         description: "Basic details required for your profile",
         questions: [
             {
-                id: "fullName",
+                id: "name",
                 type: "text",
                 label: "Full Name",
                 placeholder: "Enter your full name",
@@ -44,7 +44,7 @@ export const surveyData = [
                 grid: "col-span-1",
             },
             {
-                id: "year",
+                id: "yearOfStudy",
                 type: "select",
                 label: "Year of Study",
                 placeholder: "Select your year",
