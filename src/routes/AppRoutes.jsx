@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import Home from "../pages/Home.jsx";
-import SurveyForm from "../components/form/SurveyForm.jsx";
+import SurveyForm from "../pages/SurveyForm.jsx";
 import Dashboard from "../pages/Dashboard";
 import Payment from "../pages/payment";
 
@@ -14,10 +14,13 @@ import AdminDashboard from "../admin/pages/AdminDashboard";
 import AdminStudents from "../admin/pages/AdminStudents";
 import AdminReferrals from "../admin/pages/AdminReferrals";
 import AdminPayments from "../admin/pages/AdminPayments";
+import Login from "../pages/login.jsx";
 
 const AppRoutes = () => {
     return (
         <Routes>
+
+            {/* <Route path="/login" element={<Login/>}/> */}
 
             {/* ================= USER SIDE ================= */}
             <Route element={<UserLayout />}>
