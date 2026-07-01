@@ -24,9 +24,9 @@ export default function Footer() {
       { name: "Contact", href: "#" },
     ],
     socials: [
-      { icon: <FaLinkedin />, href: "#", label: "LinkedIn" },
-      { icon: <FaInstagram />, href: "#", label: "Instagram" },
-      { icon: <FaEnvelope />, href: "#", label: "Email" },
+      { icon: <FaLinkedin />, href: "https://www.linkedin.com/company/medhashala/ ", label: "LinkedIn" },
+      { icon: <FaInstagram />, href: "https://www.instagram.com/medhashala/", label: "Instagram" },
+      { icon: <FaEnvelope />, href: "Medhashala.in@gmail.com", label: "Email" },
     ],
   };
 
@@ -101,6 +101,8 @@ export default function Footer() {
                   whileTap={{ scale: 0.95 }}
                   href={social.href}
                   aria-label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/60 flex items-center justify-center text-lg text-slate-600 dark:text-slate-400 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-500/30 dark:hover:border-amber-400/30 shadow-sm transition-colors duration-200"
                 >
                   {social.icon}
