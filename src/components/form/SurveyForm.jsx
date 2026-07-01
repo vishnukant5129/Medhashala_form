@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import Submitted from "./Submitted.jsx";
 import SurveyQuestions from "./SurveyQuestions.jsx";
 import { registerUser } from "../../services/authService.js";
-import { submitSurvey } from "../../services/surveyFromServices.js"
+import { submitSurvey } from "../../services/surveyService.js"
 
 const SurveyForm = () => {
     const [personalInformation, setPersonalInformation] = useState({})
@@ -103,7 +103,7 @@ const SurveyForm = () => {
 
                             {currentStep === totalSteps - 1 ? (
                                 <button
-                                    onClick={handleSurveyFormInfo}
+                                    onClick={handlePersonalInfo}
                                     className="bg-green-600 text-white px-6 py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-green-700 transition"
                                 >
                                     Submit
