@@ -8,9 +8,10 @@ import RewardStatus from "../components/dashboard/RewardStatus";
 
 const Dashboard = () => {
 
-    const [progress, setProgress] = useState(0);
+    const progress =localStorage.getItem("referralCount") || 0
 
-    const referralCode = "MS001";
+    const referralCode = localStorage.getItem("referralCode")
+    
 
     const rewards = [
         {
