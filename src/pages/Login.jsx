@@ -6,8 +6,6 @@ import {
     Lock,
     Loader2,
     AlertCircle,
-    LogIn,
-    UserPlus,
     Eye,
     EyeOff,
 } from "lucide-react";
@@ -21,17 +19,15 @@ const Login = () => {
 
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         setLoading(true);
         setMessage("");
 
         try {
             const data = await loginUser({ email });
-
             localStorage.setItem("token", data.token);
-
             navigate("/home");
         } catch (error) {
             setMessage(
@@ -45,176 +41,106 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 p-6">
+        <div className="min-h-screen flex justify-center items-center  p-4 font-sans">
+            {/* Split Card Container */}
+            <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[500px]">
 
-            <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl p-8">
-
-                {/* Header */}
-
-                <div className="text-center mb-8">
-
-                    <div className="w-16 h-16 rounded-full bg-indigo-100 mx-auto flex items-center justify-center mb-4">
-
-                        <LogIn
-                            className="text-indigo-600"
-                            size={30}
-                        />
-
+                {/* Left Side: Form (White Section) */}
+                <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                    <div className="text-center mb-6">
+                        <h1 className="text-3xl font-bold text-gray-800 tracking-tight">
+                            Sign in
+                        </h1>
+                        <p className="text-xs text-gray-400 mt-2">
+                            or use your account
+                        </p>
                     </div>
 
-                    <h1 className="text-3xl font-bold text-gray-800">
-                        Welcome Back
-                    </h1>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        {/* Error Message */}
+                        {message && (
+                            <div className="flex items-start gap-2 bg-red-50 border border-red-100 text-red-600 p-3 rounded-xl text-xs">
+                                <AlertCircle size={16} className="mt-0.5 shrink-0" />
+                                <span>{message}</span>
+                            </div>
+                        )}
 
-                    <p className="text-gray-500 mt-2">
-                        Login to continue your journey.
-                    </p>
-
-                </div>
-
-                <form
-                    onSubmit={handleSubmit}
-                    className="space-y-5"
-                >
-
-                    {/* Email */}
-
-                    <div>
-
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Email Address
-                        </label>
-
+                        {/* Email Input */}
                         <div className="relative">
-
-                            <Mail
-                                size={20}
-                                className="absolute left-4 top-3.5 text-gray-400"
-                            />
-
+                            <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                             <input
                                 type="email"
-                                placeholder="name@example.com"
+                                placeholder="Email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full pl-12 pr-4 py-3 border rounded-xl bg-gray-50 border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
+                                className="w-full pl-12 pr-4 py-3 bg-[#eee] border-none rounded-xl focus:ring-2 focus:ring-[#ff4b2b] outline-none transition text-sm text-gray-800"
                                 required
                             />
-
                         </div>
 
-                    </div>
-
-                    <div>
-
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Password
-                        </label>
-
+                        {/* Password Input */}
                         <div className="relative">
-
-                            <Lock
-                                size={20}
-                                className="absolute left-4 top-3.5 text-gray-400"
-                            />
-
+                            <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                             <input
                                 type={showPassword ? "text" : "password"}
-                                placeholder="Enter your password"
+                                placeholder="Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full pl-12 pr-12 py-3 border rounded-xl bg-gray-50 border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
+                                className="w-full pl-12 pr-12 py-3 bg-[#eee] border-none rounded-xl focus:ring-2 focus:ring-[#ff4b2b] outline-none transition text-sm text-gray-800"
                                 required
                             />
-
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-4 top-3.5 text-gray-400 hover:text-indigo-600"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                             >
-                                {showPassword ? (
-                                    <EyeOff size={20} />
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
+                        </div>
+
+                        <div className="text-center">
+                            <a href="#forgot" className="text-xs text-gray-500 hover:text-gray-800 transition underline decoration-dotted">
+                                Forgot your password?
+                            </a>
+                        </div>
+
+                        {/* Submit Button */}
+                        <div className="flex justify-center pt-2">
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="bg-[#ff4b2b] hover:bg-[#ff4122] text-white text-xs font-bold uppercase tracking-wider py-3 px-12 rounded-full shadow-md hover:shadow-lg transition-all duration-150 active:scale-95 disabled:opacity-70 flex items-center gap-2"
+                            >
+                                {loading ? (
+                                    <>
+                                        <Loader2 className="animate-spin" size={16} />
+                                        Signing In...
+                                    </>
                                 ) : (
-                                    <Eye size={20} />
+                                    "Sign In"
                                 )}
                             </button>
-
                         </div>
-
-                    </div>
-
-                    {/* Login Button */}
-
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold transition flex justify-center items-center gap-2 disabled:opacity-70"
-                    >
-
-                        {loading ? (
-                            <>
-                                <Loader2
-                                    className="animate-spin"
-                                    size={20}
-                                />
-                                Log In...
-                            </>
-                        ) : (
-                            <>
-                                <LogIn size={20} />
-                                Log In
-                            </>
-                        )}
-
-                    </button>
-
-                    {/* Error */}
-
-                    {message && (
-
-                        <div className="flex items-start gap-2 bg-red-50 border border-red-200 text-red-700 p-3 rounded-lg text-sm">
-
-                            <AlertCircle
-                                size={18}
-                                className="mt-0.5 shrink-0"
-                            />
-
-                            <span>{message}</span>
-
-                        </div>
-
-                    )}
-
-                </form>
-
-                {/* Divider */}
-
-                <div className="flex items-center my-6">
-
-                    <div className="flex-1 border-t"></div>
-
-                    <span className="px-3 text-sm text-gray-400">
-                        OR
-                    </span>
-
-                    <div className="flex-1 border-t"></div>
-
+                    </form>
                 </div>
 
-                {/* Signup */}
-
-                <p className="text-center text-gray-500 text-sm mt-6">
-                    Don't have an account?
-                    <span
+                {/* Right Side: Welcome Panel (Gradient Section) */}
+                <div className="w-full md:w-1/2 bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white p-8 md:p-12 flex flex-col justify-center items-center text-center">
+                    <h2 className="text-3xl font-bold tracking-wide mb-3">
+                        Hello, Friend!
+                    </h2>
+                    <p className="text-sm opacity-90 max-w-xs leading-relaxed mb-8">
+                        Enter your personal details and start your journey with us
+                    </p>
+                    <button
                         onClick={() => navigate("/signup")}
-                        className="text-indigo-600 font-semibold cursor-pointer hover:underline ml-1"
+                        className="bg-transparent border border-white text-white text-xs font-bold uppercase tracking-wider py-3 px-12 rounded-full hover:bg-white hover:text-[#ff4b2b] transition-all duration-200 active:scale-95"
                     >
                         Sign Up
-                    </span>
-                </p>
+                    </button>
+                </div>
 
             </div>
-
         </div>
     );
 };
