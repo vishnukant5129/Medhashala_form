@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Copy, Check } from "lucide-react";
 
-const ReferralBox = () => {
-    const referralCode = "VISHNU123";
+const ReferralBox = ({ referralCode }) => {
     const [copied, setCopied] = useState(false);
 
     const handleCopy = async () => {

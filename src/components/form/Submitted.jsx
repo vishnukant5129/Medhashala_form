@@ -3,7 +3,7 @@ import { COLORS } from "../../constants/colors";
 import ShareCode from "../common/ShareCode.jsx"
 import ReferralBox from "../common/ReferralBox.jsx";
 
-export default function SubmitPage() {
+export default function SubmitPage({referralCode}) {
     const navigate = useNavigate();
 
     return (
@@ -33,7 +33,8 @@ export default function SubmitPage() {
 
                 <div>
                     <h1 className="mb-2">Here is your referral code</h1>
-                    <ReferralBox ></ReferralBox>
+                    <ReferralBox 
+                    referralCode={referralCode}/>
                     <p className="text-slate-500 leading-relaxed ">
                         Share this code with 3 friends. When they fill the survey using your code, it will be counted as a referral.
                     </p>
