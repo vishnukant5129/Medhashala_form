@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MoreVertical, Download, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getAllUsers } from '../../services/adminService';
+import { exportCSV } from "../../utils/exportCSV";
 
 const Students = () => {
     const [users, setUsers] = useState([]);
@@ -24,16 +25,24 @@ const Students = () => {
         fetchUsers();
     }, []);
 
-    const renderDots = (count) => {
-        const validCount = Number(count) || 0;
+    const MAX_REFERRALS = 3;
+
+    const renderDots = (count = 0) => {
         return (
-            <div className="flex gap-1 items-center justify-start">
-                {[...Array(3)].map((_, i) => (
-                    <span
-                        key={i}
-                        className={`w-2 h-2 rounded-full ${i < validCount ? 'bg-green-500' : 'bg-gray-200'}`}
-                    />
-                ))}
+            <div className="flex items-center gap-1.5">
+                {Array.from({ length: MAX_REFERRALS }, (_, index) => {
+                    const active = index < count;
+
+                    return (
+                        <div
+                            key={index}
+                            className={`h-2.5 w-2.5 rounded-full transition-all duration-300 ${active
+                                ? "bg-green-500 shadow-sm shadow-green-300"
+                                : "bg-gray-200"
+                                }`}
+                        />
+                    );
+                })}
             </div>
         );
     };
@@ -68,8 +77,12 @@ const Students = () => {
                     <button className="flex-1 sm:flex-none text-center px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-slate-700 shadow-sm hover:bg-gray-50">Reward</button>
                     <button className="flex-1 sm:flex-none text-center px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-slate-700 shadow-sm hover:bg-gray-50">Payment</button>
                 </div>
-                <button className="flex items-center gap-2 bg-blue-950 text-white px-5 py-2.5 rounded-2xl text-sm font-semibold hover:bg-blue-900 transition-colors shadow-sm w-full sm:w-auto justify-center">
-                    <Download size={16} /> Export CSV
+                <button
+                    onClick={() => exportCSV(users)}
+                    className="flex items-center gap-2 bg-blue-950 text-white px-5 py-2.5 rounded-2xl text-sm font-semibold hover:bg-blue-900 transition-colors shadow-sm w-full sm:w-auto justify-center"
+                >
+                    <Download size={16} />
+                    Export CSV
                 </button>
             </div>
 
@@ -116,9 +129,9 @@ const Students = () => {
 
                                 <div className="flex items-center justify-between pt-3 border-t border-gray-50">
                                     <div className="flex items-center gap-2">
-                                        {renderDots(student.refCount || 0)}
+                                        {renderDots(student.referralCount || 0)}
                                         <span className="text-xs font-bold text-slate-600">
-                                            {student.referrals || `${student.refCount || 0}/3`} refs
+                                            {student.referrals || `${student.referralCount || 0}/3`} refs
                                         </span>
                                     </div>
 
@@ -170,9 +183,9 @@ const Students = () => {
                                             <td className="py-4 px-6 text-sm font-bold text-blue-800 whitespace-nowrap">{student.code || 'N/A'}</td>
                                             <td className="py-4 px-6 whitespace-nowrap">
                                                 <div className="flex items-center gap-2">
-                                                    {renderDots(student.refCount || 0)}
+                                                    {renderDots(student.referralCount || 0)}
                                                     <span className="text-xs font-bold text-slate-700">
-                                                        {student.referrals || `${student.refCount || 0}/3`}
+                                                        {student.referrals || `${student.referralCount || 0}/3`}
                                                     </span>
                                                 </div>
                                             </td>
