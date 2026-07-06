@@ -46,7 +46,7 @@ const ReferralGrowth = ({ users }) => {
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                         <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
-                        <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} domain={[0, 4]} ticks={[0, 1, 2, 3, , 4]} />
+                        <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} domain={[0,25]} ticks={[0, 5,10, 15, 20, 25]} />
                         <Area type="monotone" dataKey="value" stroke="#1e293b" strokeWidth={2} strokeDasharray="4 4" fillOpacity={1} fill="url(#growthGradient)" />
                     </AreaChart>
                 </ResponsiveContainer>
