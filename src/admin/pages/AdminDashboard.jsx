@@ -3,7 +3,7 @@ import StatCard from "../components/common/StatCard.jsx"
 import ReferralGrowth from '../components/Dashboard/ReferralGrowth.jsx'
 import SurveyResponseTrend from '../components/Dashboard/SurveyResponseTrend.jsx'
 import RecentActivity from '../components/Dashboard/RecentActivity.jsx'
-import TopReferrers from '../components/Dashboard/TopReferrers.jsx'
+import LeaderboardTable from "../components/referrals/LeaderboardTable";
 import {
   Users,
   FileText,
@@ -101,9 +101,7 @@ const AdminDashboard = () => {
         />
 
         {/* Bottom Right: Top Referrers */}
-        <TopReferrers
-          users={users.users || []}
-        />
+        <LeaderboardTable users={users.users || []} />
       </div>
 
     </div>
