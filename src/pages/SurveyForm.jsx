@@ -17,37 +17,20 @@ const SurveyForm = () => {
     const totalSteps = 3;
 
     const handleSurveyFormInfo = async (e) => {
-        4
-        // console.log(formData)
+
         setFormData(personalInformation)
         try {
             const res = await submitSurvey(formData);
 
-            console.log(res);
+            // console.log(res);
 
-            localStorage.setItem("token", res.token);
-            localStorage.setItem("referralCode", res.referralCode);
-            
-            
+            // localStorage.setItem("token", res.token);
+            localStorage.setItem("referralCode", res.user.referralCode);
+            setReferralcode(res.user.referralCode)
+            localStorage.setItem("referralCount", res.user.referralCount);
+            // console.log("referralCount", res.user.referralCount)
 
             setCurrentStep(totalSteps);
-            try {
-                const referralCode = localStorage.getItem("referralCode");
-
-                if (!referralCode) {
-                    alert("Referral code not found");
-                    return;
-                }
-
-                const res2 = await getReferralDetails(referralCode);
-
-                console.log(res2.referralCode)
-                setReferralcode(res2.referralCode)
-
-            } catch (error) {
-                console.error(error.response?.data || error.message);
-                alert(error.response?.data?.message || "referralCode failed");
-            }
 
         } catch (error) {
             console.error(error.response?.data || error.message);
@@ -61,22 +44,6 @@ const SurveyForm = () => {
         if (currentStep < totalSteps) {
             setCurrentStep((prev) => prev + 1);
         }
-
-        // setFormData(personalInformation)
-
-        // try {
-        //     // const res = await registerUser(personalInformation);
-        //     const res = await submitSurvey(formData);
-        //     console.log(res);
-
-        //     localStorage.setItem("token", res.token);
-
-        //     setCurrentStep(totalSteps);
-
-        // } catch (error) {
-        //     console.error(error.response?.data || error.message);
-        //     alert(error.response?.data?.message || "Registration failed");
-        // }
     };
 
     const handlePrev = () => {
@@ -95,7 +62,6 @@ const SurveyForm = () => {
 
                         <Stepper currentStep={currentStep} />
 
-                        {/* <form onSubmit={handleNext} className="mt-12"> */}
 
 
                         {currentStep === 1 && (
@@ -141,7 +107,6 @@ const SurveyForm = () => {
                                 </button>
                             )}
                         </div>
-                        {/* </form> */}
                     </div>
                 </>
             ) : (
