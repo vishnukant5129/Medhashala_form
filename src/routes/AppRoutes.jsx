@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import SurveyForm from "../pages/SurveyForm.jsx";
 import Dashboard from "../pages/Dashboard";
-import Payment from "../pages/payment";
+import Payment from "../pages/Payment";
 
 import UserLayout from "../layouts/UserLayout";
 import AdminLayout from "../admin/layout/AdminLayout";
