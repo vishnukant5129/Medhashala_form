@@ -5,9 +5,14 @@ import {
     Lock,
     Eye,
     EyeOff,
-    Gift
+    Gift,
+    UserPlus,
+    AlertCircle,
+    Loader2,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { COLORS } from "../constants/colors";
+import { registerUser } from "../services/authService";
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -22,155 +27,360 @@ const Signup = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
+        setFormData((prev) => ({
+            ...prev,
             [e.target.name]: e.target.value,
-        });
+        }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setLoading(true);
+        setMessage("");
+
         if (formData.password !== formData.confirmPassword) {
-            alert("Passwords do not match!");
+            setMessage("Passwords do not match.");
+            setLoading(false);
             return;
         }
 
-        console.log(formData);
-        // TODO: Call Register API here
-        navigate("/");
+        try {
+            const response = await registerUser({
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+                referralCode: formData.referralCode,
+            });
+
+            console.log("Registration successful:", response);
+
+            navigate("/");
+        } catch (error) {
+            setMessage(
+                error.response?.data?.message ||
+                error.message ||
+                "Something went wrong. Please try again."
+            );
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
-        <div className="min-h-screen flex justify-center items-center bg-[#f6f5f7] p-4 font-sans">
-            {/* Split Card Container */}
-            <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[550px]">
+        <div
+            className="min-h-screen flex items-center justify-center px-4 py-8 font-sans"
+            style={{ backgroundColor: COLORS.background }}
+        >
+            {/* Main Card */}
+            <div
+                className="w-full max-w-5xl min-h-[580px] overflow-hidden rounded-3xl bg-white flex flex-col md:flex-row"
+                style={{
+                    border: `1px solid ${COLORS.border}`,
+                    boxShadow: "0 20px 60px rgba(11, 31, 58, 0.12)",
+                }}
+            >
+                {/* Left Side - Welcome Panel */}
+                <div
+                    className="relative hidden w-1/2 overflow-hidden md:flex flex-col items-center justify-center p-12 text-center"
+                    style={{ backgroundColor: COLORS.primary }}
+                >
+                    {/* Decorative Circles */}
+                    <div
+                        className="absolute -left-24 -top-24 h-72 w-72 rounded-full opacity-10"
+                        style={{ backgroundColor: COLORS.accent }}
+                    />
 
-                {/* Left Side: Welcome Panel (Gradient Section) */}
-                <div className="w-full md:w-1/2 bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white p-8 md:p-12 flex flex-col justify-center items-center text-center order-2 md:order-1">
-                    <h2 className="text-3xl font-bold tracking-wide mb-3">
-                        Welcome Back!
-                    </h2>
-                    <p className="text-sm opacity-90 max-w-xs leading-relaxed mb-8">
-                        To keep connected with us please login with your personal info
-                    </p>
-                    <button
-                        onClick={() => navigate("/")}
-                        className="bg-transparent border border-white text-white text-xs font-bold uppercase tracking-wider py-3 px-12 rounded-full hover:bg-white hover:text-[#ff4b2b] transition-all duration-200 active:scale-95"
-                    >
-                        Sign In
-                    </button>
+                    <div
+                        className="absolute -bottom-32 -right-24 h-80 w-80 rounded-full opacity-10"
+                        style={{ backgroundColor: COLORS.accent }}
+                    />
+
+                    <div className="relative z-10 max-w-sm">
+                        {/* Icon */}
+                        <div
+                            className="mx-auto mb-7 flex h-16 w-16 items-center justify-center rounded-2xl"
+                            style={{
+                                backgroundColor: COLORS.accent,
+                                color: COLORS.primary,
+                                boxShadow: `0 10px 30px ${COLORS.accent}35`,
+                            }}
+                        >
+                            <UserPlus size={28} />
+                        </div>
+
+                        <h2 className="mb-4 text-4xl font-bold text-white">
+                            Welcome Back!
+                        </h2>
+
+                        <p className="mb-9 text-sm leading-7 text-slate-300">
+                            Already have an account? Sign in and continue your
+                            journey with us.
+                        </p>
+
+                        <button
+                            onClick={() => navigate("/")}
+                            className="rounded-xl border-2 px-10 py-3 text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5"
+                            style={{
+                                borderColor: COLORS.accent,
+                                color: COLORS.accent,
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor =
+                                    COLORS.accent;
+                                e.currentTarget.style.color =
+                                    COLORS.primary;
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor =
+                                    "transparent";
+                                e.currentTarget.style.color = COLORS.accent;
+                            }}
+                        >
+                            Sign In
+                        </button>
+                    </div>
                 </div>
 
-                {/* Right Side: Form (White Section) */}
-                <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center order-1 md:order-2 max-h-[85vh] overflow-y-auto scrollbar-none">
-                    <div className="text-center mb-6">
-                        <h1 className="text-3xl font-bold text-gray-800 tracking-tight">
+                {/* Right Side - Signup Form */}
+                <div className="order-1 flex max-h-[90vh] w-full flex-col justify-center overflow-y-auto p-8 md:order-2 md:w-1/2 md:p-12 lg:p-16">
+                    {/* Header */}
+                    <div className="mb-7">
+                        <div
+                            className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl"
+                            style={{
+                                backgroundColor: `${COLORS.accent}20`,
+                                color: COLORS.accent,
+                            }}
+                        >
+                            <UserPlus size={22} />
+                        </div>
+
+                        <h1
+                            className="text-3xl font-bold tracking-tight"
+                            style={{ color: COLORS.primary }}
+                        >
                             Create Account
                         </h1>
-                        <p className="text-xs text-gray-400 mt-2">
-                            or use your email for registration
+
+                        <p
+                            className="mt-2 text-sm"
+                            style={{ color: "#64748B" }}
+                        >
+                            Join us and start your journey today
                         </p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-3.5">
-                        {/* Name Input */}
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        {/* Error Message */}
+                        {message && (
+                            <div
+                                className="flex items-start gap-3 rounded-xl p-3 text-sm"
+                                style={{
+                                    backgroundColor: "#FEF2F2",
+                                    color: "#DC2626",
+                                    border: "1px solid #FECACA",
+                                }}
+                            >
+                                <AlertCircle
+                                    size={18}
+                                    className="mt-0.5 shrink-0"
+                                />
+
+                                <span>{message}</span>
+                            </div>
+                        )}
+
+                        {/* Full Name */}
                         <div className="relative">
-                            <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                            <User
+                                size={18}
+                                className="absolute left-4 top-1/2 -translate-y-1/2"
+                                style={{ color: "#94A3B8" }}
+                            />
+
                             <input
                                 type="text"
                                 name="name"
                                 placeholder="Full Name"
                                 value={formData.name}
                                 onChange={handleChange}
-                                className="w-full pl-12 pr-4 py-2.5 bg-[#eee] border-none rounded-xl focus:ring-2 focus:ring-[#ff4b2b] outline-none transition text-sm text-gray-800"
+                                className="w-full rounded-xl py-3.5 pl-12 pr-4 text-sm outline-none transition-all"
+                                style={{
+                                    color: COLORS.text,
+                                    backgroundColor: COLORS.background,
+                                    border: `1px solid ${COLORS.border}`,
+                                }}
                                 required
                             />
                         </div>
 
-                        {/* Email Input */}
+                        {/* Email */}
                         <div className="relative">
-                            <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                            <Mail
+                                size={18}
+                                className="absolute left-4 top-1/2 -translate-y-1/2"
+                                style={{ color: "#94A3B8" }}
+                            />
+
                             <input
                                 type="email"
                                 name="email"
-                                placeholder="Email"
+                                placeholder="Email Address"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full pl-12 pr-4 py-2.5 bg-[#eee] border-none rounded-xl focus:ring-2 focus:ring-[#ff4b2b] outline-none transition text-sm text-gray-800"
+                                className="w-full rounded-xl py-3.5 pl-12 pr-4 text-sm outline-none transition-all"
+                                style={{
+                                    color: COLORS.text,
+                                    backgroundColor: COLORS.background,
+                                    border: `1px solid ${COLORS.border}`,
+                                }}
                                 required
                             />
                         </div>
 
-                        {/* Password Input */}
+                        {/* Password */}
                         <div className="relative">
-                            <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                            <Lock
+                                size={18}
+                                className="absolute left-4 top-1/2 -translate-y-1/2"
+                                style={{ color: "#94A3B8" }}
+                            />
+
                             <input
                                 type={showPassword ? "text" : "password"}
                                 name="password"
                                 placeholder="Password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="w-full pl-12 pr-12 py-2.5 bg-[#eee] border-none rounded-xl focus:ring-2 focus:ring-[#ff4b2b] outline-none transition text-sm text-gray-800"
+                                className="w-full rounded-xl py-3.5 pl-12 pr-12 text-sm outline-none transition-all"
+                                style={{
+                                    color: COLORS.text,
+                                    backgroundColor: COLORS.background,
+                                    border: `1px solid ${COLORS.border}`,
+                                }}
                                 required
                             />
+
                             <button
                                 type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                onClick={() =>
+                                    setShowPassword(!showPassword)
+                                }
+                                className="absolute right-4 top-1/2 -translate-y-1/2 transition-colors"
+                                style={{ color: "#94A3B8" }}
                             >
-                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                {showPassword ? (
+                                    <EyeOff size={18} />
+                                ) : (
+                                    <Eye size={18} />
+                                )}
                             </button>
                         </div>
 
-                        {/* Confirm Password Input */}
+                        {/* Confirm Password */}
                         <div className="relative">
-                            <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                            <Lock
+                                size={18}
+                                className="absolute left-4 top-1/2 -translate-y-1/2"
+                                style={{ color: "#94A3B8" }}
+                            />
+
                             <input
                                 type={showConfirm ? "text" : "password"}
                                 name="confirmPassword"
                                 placeholder="Confirm Password"
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
-                                className="w-full pl-12 pr-12 py-2.5 bg-[#eee] border-none rounded-xl focus:ring-2 focus:ring-[#ff4b2b] outline-none transition text-sm text-gray-800"
+                                className="w-full rounded-xl py-3.5 pl-12 pr-12 text-sm outline-none transition-all"
+                                style={{
+                                    color: COLORS.text,
+                                    backgroundColor: COLORS.background,
+                                    border: `1px solid ${COLORS.border}`,
+                                }}
                                 required
                             />
+
                             <button
                                 type="button"
                                 onClick={() => setShowConfirm(!showConfirm)}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 transition-colors"
+                                style={{ color: "#94A3B8" }}
                             >
-                                {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
+                                {showConfirm ? (
+                                    <EyeOff size={18} />
+                                ) : (
+                                    <Eye size={18} />
+                                )}
                             </button>
                         </div>
 
-                        {/* Referral Code Input */}
+                        {/* Referral Code */}
                         <div className="relative">
-                            <Gift size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                            <Gift
+                                size={18}
+                                className="absolute left-4 top-1/2 -translate-y-1/2"
+                                style={{ color: "#94A3B8" }}
+                            />
+
                             <input
                                 type="text"
                                 name="referralCode"
                                 placeholder="Referral Code (Optional)"
                                 value={formData.referralCode}
                                 onChange={handleChange}
-                                className="w-full pl-12 pr-4 py-2.5 bg-[#eee] border-none rounded-xl focus:ring-2 focus:ring-[#ff4b2b] outline-none transition text-sm text-gray-800"
+                                className="w-full rounded-xl py-3.5 pl-12 pr-4 text-sm outline-none transition-all"
+                                style={{
+                                    color: COLORS.text,
+                                    backgroundColor: COLORS.background,
+                                    border: `1px solid ${COLORS.border}`,
+                                }}
                             />
                         </div>
 
                         {/* Submit Button */}
-                        <div className="flex justify-center pt-3">
-                            <button
-                                type="submit"
-                                className="bg-[#ff4b2b] hover:bg-[#ff4122] text-white text-xs font-bold uppercase tracking-wider py-3 px-12 rounded-full shadow-md hover:shadow-lg transition-all duration-150 active:scale-95"
-                            >
-                                Sign Up
-                            </button>
-                        </div>
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
+                            style={{
+                                backgroundColor: COLORS.primary,
+                                boxShadow: `0 8px 20px ${COLORS.primary}25`,
+                            }}
+                        >
+                            {loading ? (
+                                <>
+                                    <Loader2
+                                        size={18}
+                                        className="animate-spin"
+                                    />
+                                    Creating Account...
+                                </>
+                            ) : (
+                                "Create Account"
+                            )}
+                        </button>
                     </form>
-                </div>
 
+                    {/* Mobile Login */}
+                    <p
+                        className="mt-7 text-center text-sm md:hidden"
+                        style={{ color: "#64748B" }}
+                    >
+                        Already have an account?{" "}
+                        <button
+                            onClick={() => navigate("/")}
+                            className="font-semibold"
+                            style={{ color: COLORS.primary }}
+                        >
+                            Sign In
+                        </button>
+                    </p>
+                </div>
             </div>
         </div>
     );
