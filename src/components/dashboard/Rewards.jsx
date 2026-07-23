@@ -5,18 +5,17 @@ import {
     CheckCircle2,
 } from "lucide-react";
 
-const Rewards = ({ rewards, progress }) => {
-
-    const isUnlocked = progress >= 3;
+const Rewards = ({
+    rewards,
+    allRewardsUnlocked,
+}) => {
 
     return (
 
         <div className="bg-white rounded-3xl shadow-sm mt-8 p-6 md:p-8">
 
             <h2 className="text-2xl font-black text-[#14306D] mb-6">
-
                 Rewards
-
             </h2>
 
             <div className="space-y-4">
@@ -25,27 +24,34 @@ const Rewards = ({ rewards, progress }) => {
 
                     <div
                         key={reward.id}
-                        className={`flex justify-between items-center rounded-2xl p-5 transition-all duration-300 ${isUnlocked
+                        className={`
+                            flex justify-between items-center
+                            rounded-2xl p-5
+                            transition-all duration-300
+                            ${allRewardsUnlocked
                                 ? "bg-green-50 border border-green-200"
                                 : "bg-[#F8FAFC] border border-slate-100"
-                            }`}
+                            }
+                        `}
                     >
-
-                        {/* Left */}
 
                         <div className="flex items-center gap-4">
 
                             <div
-                                className={`w-12 h-12 rounded-xl flex items-center justify-center ${isUnlocked
+                                className={`
+                                    w-12 h-12 rounded-xl
+                                    flex items-center justify-center
+                                    ${allRewardsUnlocked
                                         ? "bg-green-100"
                                         : "bg-blue-50"
-                                    }`}
+                                    }
+                                `}
                             >
 
                                 <BookOpen
                                     size={22}
                                     className={
-                                        isUnlocked
+                                        allRewardsUnlocked
                                             ? "text-green-600"
                                             : "text-[#14306D]"
                                     }
@@ -54,16 +60,12 @@ const Rewards = ({ rewards, progress }) => {
                             </div>
 
                             <span className="font-medium text-slate-700">
-
                                 {reward.text}
-
                             </span>
 
                         </div>
 
-                        {/* Right */}
-
-                        {isUnlocked ? (
+                        {allRewardsUnlocked ? (
 
                             <CheckCircle2
                                 size={24}
