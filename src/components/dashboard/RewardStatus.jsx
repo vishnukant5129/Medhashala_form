@@ -1,15 +1,35 @@
 import React from "react";
-import { ArrowRight, Lock } from "lucide-react";
+import {
+    ArrowRight,
+    Lock,
+    CreditCard,
+} from "lucide-react";
 
-const RewardStatus = ({ progress }) => {
+const RewardStatus = ({
+    progress,
+    allRewardsUnlocked,
+}) => {
+
     const totalReferral = 3;
 
-    const isUnlocked = progress >= totalReferral;
+    const remainingReferral =
+        Math.max(totalReferral - progress, 0);
+
+    const handlePayment = () => {
+
+        const YOUR_RAZORPAY_PAYMENT_LINK = "https://rzp.io/rzp/Medhashalamasterclass"
+
+        // Razorpay Payment Link
+        window.location.href =
+            YOUR_RAZORPAY_PAYMENT_LINK;
+
+    };
 
     return (
+
         <div className="mt-8">
 
-            {isUnlocked ? (
+            {allRewardsUnlocked ? (
 
                 <div className="bg-[#FFF8E8] border border-yellow-200 rounded-3xl p-6 flex flex-col md:flex-row justify-between items-center gap-5">
 
@@ -33,52 +53,81 @@ const RewardStatus = ({ progress }) => {
 
                     </div>
 
-                    <button className="bg-[#14306D] hover:bg-[#0F2454] transition-all text-white px-7 py-3 rounded-xl font-semibold flex items-center gap-2">
-
-                        Pay ₹29 & Reserve
-
-                        <ArrowRight size={18} />
-
-                    </button>
+                    <div className="bg-green-100 text-green-700 px-5 py-3 rounded-xl font-bold">
+                        All Rewards Unlocked 🎁
+                    </div>
 
                 </div>
 
             ) : (
 
-                <div className="bg-red-50 border border-red-200 rounded-3xl p-6 flex items-center gap-5">
+                <div className="bg-red-50 border border-red-200 rounded-3xl p-6">
 
-                    <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-6">
 
-                        <Lock
-                            size={30}
-                            className="text-red-500"
-                        />
+                        <div className="flex items-center gap-5">
 
-                    </div>
+                            <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
 
-                    <div>
+                                <Lock
+                                    size={30}
+                                    className="text-red-500"
+                                />
 
-                        <h2 className="text-2xl font-black">
+                            </div>
 
-                            Reward Status :{" "}
+                            <div>
 
-                            <span className="text-red-500">
+                                <h2 className="text-2xl font-black">
 
-                                Locked
+                                    Reward Status :{" "}
 
-                            </span>
+                                    <span className="text-red-500">
+                                        Locked
+                                    </span>
 
-                        </h2>
+                                </h2>
 
-                        <p className="text-slate-500 mt-2">
+                                <p className="text-slate-500 mt-2">
 
-                            Refer{" "}
-                            {totalReferral - progress}{" "}
-                            more friend
-                            {totalReferral - progress > 1 ? "s" : ""}
-                            {" "}to unlock your exclusive rewards.
+                                    Refer{" "}
+                                    {remainingReferral}{" "}
+                                    more friend
+                                    {remainingReferral > 1
+                                        ? "s"
+                                        : ""
+                                    }
+                                    {" "}to unlock your rewards.
 
-                        </p>
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <button
+                            onClick={handlePayment}
+                            className="
+                                bg-[#14306D]
+                                hover:bg-[#0F2454]
+                                text-white
+                                px-7 py-4
+                                rounded-xl
+                                font-bold
+                                flex items-center gap-3
+                                transition-all
+                                shadow-lg
+                                hover:scale-105
+                            "
+                        >
+
+                            <CreditCard size={20} />
+
+                            Pay ₹69 & Unlock
+
+                            <ArrowRight size={18} />
+
+                        </button>
 
                     </div>
 
@@ -87,6 +136,7 @@ const RewardStatus = ({ progress }) => {
             )}
 
         </div>
+
     );
 };
 
