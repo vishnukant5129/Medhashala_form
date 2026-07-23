@@ -19,7 +19,9 @@ function App() {
 
   return (
     <div className="bg-[#F8FAFC] dark:bg-slate-950 min-h-screen">
+      <Navbar />
       <AppRoutes />
+      <Footer />
     </div>
   );
 }
