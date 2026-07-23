@@ -7,9 +7,17 @@ import {
 import { motion } from "framer-motion";
 import React from "react";
 import logo from "../../assets/Medhashala.jpeg";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Footer() {
+  const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
+
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
+  if (isAdminRoute) {
+    return null;
+  }
 
   const navigationLinks = {
     company: [
@@ -39,7 +47,9 @@ export default function Footer() {
           <div className="flex flex-col space-y-4">
             <div className="flex items-center gap-3 group cursor-pointer">
               <div className="w-11 h-11 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 shadow-md transition-transform duration-300 group-hover:scale-105">
-                <img src={logo} alt="MedhaShala Logo" className="w-full h-full object-cover" />
+                <img
+                  onClick={() => navigate("/admin")}
+                  src={logo} alt="MedhaShala Logo" className="w-full h-full object-cover" />
               </div>
               <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
                 Medhashala
