@@ -57,13 +57,8 @@ const SurveyForm = () => {
             {currentStep !== totalSteps ? (
                 <>
                     <h1 className="text-4xl font-bold mb-6">Survey Form</h1>
-
                     <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-3xl">
-
                         <Stepper currentStep={currentStep} />
-
-
-
                         {currentStep === 1 && (
                             <PersonalInformation
                                 formData={formData}
