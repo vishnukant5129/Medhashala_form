@@ -12,14 +12,6 @@ export const surveyData = [
                 grid: "col-span-1",
             },
             {
-                id: "email",
-                type: "email",
-                label: "Email Address",
-                placeholder: "Enter your email",
-                // required: true,
-                grid: "col-span-1",
-            },
-            {
                 id: "phone",
                 type: "text",
                 label: "Phone Number",
@@ -67,9 +59,9 @@ export const surveyData = [
         section: "Goals & Aspirations",
         questions: [
             {
-                id: "q6",
+                id: "q1",
                 type: "radio",
-                label: "Question 6: What is your primary goal at the moment?",
+                label: "Question 1: What is your primary goal at the moment?",
                 options: [
                     "Cracking competitive exam",
                     "Improving academic performance",
@@ -81,9 +73,9 @@ export const surveyData = [
                 ],
             },
             {
-                id: "q7",
+                id: "q2",
                 type: "radio",
-                label: "Question 7: How many times have you restarted your goal?",
+                label: "Question 2: How many times have you restarted your goal?",
                 options: [
                     "First attempt",
                     "Once or twice",
@@ -92,9 +84,9 @@ export const surveyData = [
                 ],
             },
             {
-                id: "q8",
+                id: "q3",
                 type: "radio",
-                label: "Question 8: How clear is your daily action plan?",
+                label: "Question 3: How clear is your daily action plan?",
                 options: ["Very clear", "Somewhat clear", "Not very clear", "No plan"],
             },
         ],
@@ -104,9 +96,9 @@ export const surveyData = [
         section: "Productivity Challenges",
         questions: [
             {
-                id: "q9",
+                id: "q4",
                 type: "radio",
-                label: "Question 9: Biggest productivity challenge?",
+                label: "Question 4: Biggest productivity challenge?",
                 options: [
                     "Lose consistency",
                     "Distractions",
@@ -118,15 +110,21 @@ export const surveyData = [
                 ],
             },
             {
-                id: "q10",
+                id: "q5",
                 type: "radio",
-                label: "Question 10: Focused hours per day?",
-                options: ["< 1 hour", "1–2 hours", "2–4 hours", "4–6 hours", "6+ hours"],
+                label: "Question 5: Focused hours per day?",
+                options: [
+                    "< 1 hour",
+                    "1–2 hours",
+                    "2–4 hours",
+                    "4–6 hours",
+                    "6+ hours",
+                ],
             },
             {
-                id: "q11",
+                id: "q6",
                 type: "radio",
-                label: "Question 11: Consistency level?",
+                label: "Question 6: Consistency level?",
                 options: [
                     "Very consistent",
                     "Mostly consistent",
@@ -134,12 +132,10 @@ export const surveyData = [
                     "Very inconsistent",
                 ],
             },
-
-            // Q12–Q15
             {
-                id: "q12",
+                id: "q7",
                 type: "radio",
-                label: "Question 12: Preferred study/work time?",
+                label: "Question 7: Preferred study/work time?",
                 options: [
                     "Early Mornings (5 AM - 8 AM)",
                     "Mornings (8 AM - 12 PM)",
@@ -150,9 +146,9 @@ export const surveyData = [
                 ],
             },
             {
-                id: "q13",
+                id: "q8",
                 type: "radio",
-                label: "Question 13: How often do you work at full potential?",
+                label: "Question 8: How often do you work at full potential?",
                 options: [
                     "Almost always",
                     "Often",
@@ -162,10 +158,9 @@ export const surveyData = [
                 ],
             },
             {
-                id: "q14",
+                id: "q9",
                 type: "radio",
-                label:
-                    "Question 14: Have you tried building a routine but failed?",
+                label: "Question 9: Have you tried building a routine but failed?",
                 options: [
                     "Yes, multiple times",
                     "Yes, once or twice",
@@ -174,9 +169,9 @@ export const surveyData = [
                 ],
             },
             {
-                id: "q15",
+                id: "q10",
                 type: "radio",
-                label: "Question 15: Urgency to fix consistency?",
+                label: "Question 10: Urgency to fix consistency?",
                 options: [
                     "Extremely urgent",
                     "Fairly urgent",
@@ -191,9 +186,9 @@ export const surveyData = [
         section: "Tools & Habits",
         questions: [
             {
-                id: "q16",
+                id: "q11",
                 type: "checkbox",
-                label: "Question 16: Productivity tools you currently use?",
+                label: "Question 11: Productivity tools you currently use?",
                 options: [
                     "Notion",
                     "Google Calendar / Tasks",
@@ -207,9 +202,9 @@ export const surveyData = [
                 maxSelect: null,
             },
             {
-                id: "q17",
+                id: "q12",
                 type: "radio",
-                label: "Question 17: Satisfaction with tools?",
+                label: "Question 12: Satisfaction with tools?",
                 options: [
                     "Very satisfied",
                     "Somewhat satisfied",
@@ -219,9 +214,9 @@ export const surveyData = [
                 ],
             },
             {
-                id: "q18",
+                id: "q13",
                 type: "radio",
-                label: "Question 18: Biggest gap in tools?",
+                label: "Question 13: Biggest gap in tools?",
                 options: [
                     "No accountability",
                     "No progress tracking",
@@ -238,9 +233,9 @@ export const surveyData = [
         section: "Platform Expectations",
         questions: [
             {
-                id: "q19",
+                id: "q14",
                 type: "checkbox",
-                label: "Question 19: Features you want (Top 3)",
+                label: "Question 14: Features you want (Top 3)",
                 options: [
                     "AI study plans",
                     "Pomodoro tracking",
@@ -253,9 +248,9 @@ export const surveyData = [
                 maxSelect: 3,
             },
             {
-                id: "q20",
+                id: "q15",
                 type: "radio",
-                label: "Question 20: Studying with others?",
+                label: "Question 15: Studying with others?",
                 options: [
                     "Extremely important",
                     "Somewhat important",
@@ -264,9 +259,9 @@ export const surveyData = [
                 ],
             },
             {
-                id: "q21",
+                id: "q16",
                 type: "radio",
-                label: "Question 21: Importance of mentorship?",
+                label: "Question 16: Importance of mentorship?",
                 options: [
                     "Very important",
                     "Somewhat important",
@@ -275,9 +270,9 @@ export const surveyData = [
                 ],
             },
             {
-                id: "q22",
+                id: "q17",
                 type: "radio",
-                label: "Question 22: Willingness to pay monthly?",
+                label: "Question 17: Willingness to pay monthly?",
                 options: [
                     "Free only",
                     "Up to ₹199",
@@ -287,9 +282,9 @@ export const surveyData = [
                 ],
             },
             {
-                id: "q23",
+                id: "q18",
                 type: "radio",
-                label: "Question 23: Most used learning platform?",
+                label: "Question 18: Most used learning platform?",
                 options: [
                     "YouTube",
                     "Instagram",
@@ -301,9 +296,9 @@ export const surveyData = [
                 ],
             },
             {
-                id: "q24",
+                id: "q19",
                 type: "radio",
-                label: "Question 24: Heard about Medhashala before?",
+                label: "Question 19: Heard about Medhashala before?",
                 options: [
                     "Already part of community",
                     "Seen on social media",
@@ -318,10 +313,9 @@ export const surveyData = [
         section: "Platform Intent",
         questions: [
             {
-                id: "q25",
+                id: "q20",
                 type: "radio",
-                label:
-                    "Question 25: Likelihood to try AI + accountability platform?",
+                label: "Question 20: Likelihood to try AI + accountability platform?",
                 options: [
                     "Extremely likely",
                     "Likely",
@@ -331,9 +325,9 @@ export const surveyData = [
                 ],
             },
             {
-                id: "q26",
+                id: "q21",
                 type: "radio",
-                label: "Question 26: What would make you sign up immediately?",
+                label: "Question 21: What would make you sign up immediately?",
                 options: [
                     "Free start",
                     "Trusted community",
@@ -345,6 +339,7 @@ export const surveyData = [
             },
         ],
     },
+
 ]
 
 
